@@ -1,0 +1,1375 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta name="robots" content="noindex, nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movet — Larga vida para tu mascota</title>
+<meta name="description" content="Red veterinaria Movet en Bogotá, Medellín, Manizales y Pereira: 12 clínicas con urgencias 24/7 y 4 puntos Movet Express para perros y gatos. Próximamente en Medellín (Laureles y Envigado) y Cali.">
+<meta name="theme-color" content="#21187c">
+<link rel="icon" type="image/png" href="./assets/icon.png">
+<style>
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url(./assets/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2) format("woff2")}
+
+:root{
+  --navy:#21187c;
+  --pink:#c52a89;
+  --white-warm:#f4f4f4;
+  --cream:#fae7e8;
+  --red:#c4291e;
+  --wa:#25d366;
+  --border:#e5e7eb;
+  --font:"Space Grotesk","Space Grotesk Fallback",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;border:0 solid var(--border)}
+html{-webkit-text-size-adjust:100%;line-height:1.5;font-family:var(--font);scroll-behavior:smooth;scroll-padding-top:96px}
+body{min-height:100vh;display:flex;flex-direction:column;background:#fff;color:var(--navy);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img,svg{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;cursor:pointer}
+ul,ol{list-style:none}
+h1,h2,h3,p{overflow-wrap:break-word}
+:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.skip:focus{position:fixed;top:16px;left:16px;z-index:60;width:auto;height:auto;clip:auto;padding:12px 20px;border-radius:9999px;background:var(--navy);color:var(--white-warm);font-size:14px;font-weight:600;box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1)}
+
+.wrap{width:100%;max-width:64rem;margin:0 auto;padding:0 16px}
+.wrap7{width:100%;max-width:80rem;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.wrap,.wrap7{padding:0 24px}}
+@media(min-width:1024px){.wrap,.wrap7{padding:0 32px}}
+
+/* ---------- Botones ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9999px;white-space:nowrap;transition:filter .2s,box-shadow .2s,transform .2s,background-color .2s}
+.btn svg{width:20px;height:20px;flex:none}
+.btn-red{background:var(--red);color:var(--white-warm)}
+.btn-wa{background:var(--wa);color:var(--navy)}
+.btn-navy{background:var(--navy);color:var(--white-warm)}
+.btn-lg{height:56px;padding:0 32px;font-size:18px;line-height:28px;font-weight:600}
+.btn-md{height:56px;padding:0 32px;font-size:16px;line-height:24px;font-weight:600;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1)}
+.btn-wa:hover{filter:brightness(.95)}
+.btn-navy:hover{background:rgba(33,24,124,.9)}
+@media(prefers-reduced-motion:no-preference){.btn-md:hover{transform:translateY(-4px);box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1)}.btn-md:active{transform:translateY(0)}}
+
+/* ---------- Header ---------- */
+.hdr{position:sticky;top:0;z-index:40;border-bottom:1px solid var(--border);background:rgba(255,255,255,.95)}
+@supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){.hdr{background:rgba(255,255,255,.8);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}}
+.hdr-row{display:flex;height:64px;align-items:center;justify-content:space-between;gap:12px}
+.hdr-left{display:flex;align-items:center;gap:8px}
+.burger{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:6px;color:var(--navy);transition:color .2s}
+.burger:hover{color:var(--pink)}
+.burger svg{width:24px;height:24px}
+.logo{display:flex;align-items:center}
+.logo svg{height:36px;width:auto}
+.nav{display:none}
+.nav ul{display:flex;align-items:center;justify-content:center;gap:4px}
+.nav-i{display:inline-flex;width:max-content;height:44px;align-items:center;justify-content:center;gap:6px;padding:0 12px;border-radius:10px;font-size:14px;line-height:20px;font-weight:500;color:var(--navy);transition:color .2s}
+.nav-i:hover{color:var(--pink)}
+.nav-i svg{width:16px;height:16px;flex:none;color:rgba(33,24,124,.6)}
+.hdr-cta{display:flex;align-items:center;gap:8px}
+.hbtn{display:none;height:36px;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:9999px;font-size:14px;line-height:20px;white-space:nowrap;transition:filter .2s,background-color .2s}
+.hbtn svg{width:16px;height:16px;flex:none}
+.hbtn-wa{background:var(--wa);color:var(--navy);font-weight:600}
+.hbtn-wa:hover{filter:brightness(.95)}
+.hbtn-em{background:var(--red);color:var(--white-warm);font-weight:500}
+.hbtn-em:hover{background:rgba(196,41,30,.9)}
+.t-short{display:none}
+.t-xl{display:none}
+.mmenu{border-top:1px solid var(--border);background:rgba(255,255,255,.98);padding:8px 16px 16px}
+.mmenu[hidden]{display:none}
+.mmenu a{display:flex;align-items:center;min-height:48px;font-size:16px;font-weight:500;border-bottom:1px solid var(--border)}
+.mmenu a:last-child{border-bottom:0}
+@media(min-width:640px){.hdr-row{height:80px;gap:16px}.logo svg{height:40px}.hdr-cta{gap:12px}}
+@media(min-width:768px){.hbtn{display:inline-flex;height:44px;padding:0 14px}}
+@media(min-width:1024px){
+  .nav{display:flex;position:relative;z-index:10}
+  .burger,.mmenu{display:none}
+  .t-full{display:none}
+  .t-short{display:inline}
+}
+@media(min-width:1280px){
+  .hbtn{padding:0 24px}
+  .t-full{display:inline}
+  .t-short{display:none}
+  .t-xl{display:inline}
+}
+
+/* ---------- Hero / carrusel ---------- */
+main{flex:1 1 0%;padding-bottom:80px;background:var(--white-warm)}
+@media(min-width:768px){main{padding-bottom:0}}
+.hero{position:relative;width:100%}
+.slides{display:grid;overflow:hidden}
+.slide{grid-area:1/1;min-width:0;will-change:transform;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.slide[data-p="1"]{transform:translate3d(100%,0,0)}
+.slide[data-p="-1"]{transform:translate3d(-100%,0,0)}
+.slide[data-p="0"]{transform:translate3d(0,0,0)}
+.slide-in{position:relative;display:flex;align-items:stretch;width:100%;height:100%;min-height:32rem;overflow:hidden}
+.slide-in .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;color:transparent}
+.veil{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(33,24,124,.8),rgba(33,24,124,.55),rgba(33,24,124,.7))}
+.veil.v2{background:linear-gradient(to bottom,rgba(33,24,124,.8),rgba(33,24,124,.72),rgba(33,24,124,.8))}
+@supports (background:linear-gradient(to bottom in oklab,red,blue)){
+  .veil{background:linear-gradient(to bottom in oklab,rgba(33,24,124,.8),rgba(33,24,124,.55),rgba(33,24,124,.7))}
+  .veil.v2{background:linear-gradient(to bottom in oklab,rgba(33,24,124,.8),rgba(33,24,124,.72),rgba(33,24,124,.8))}
+}
+.slide-copy{position:relative;display:flex;width:100%;align-items:center;padding-bottom:80px}
+.tc{text-align:center}
+.eyebrow{font-size:12px;line-height:16px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--white-warm)}
+.slide h1,.slide h2{margin-top:16px;font-size:36px;line-height:40px;font-weight:700;color:var(--white-warm)}
+.lead{max-width:42rem;margin:24px auto 0;font-size:16px;line-height:24px;color:rgba(244,244,244,.85)}
+.slide-cta{margin-top:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.slide-cta.md-up{display:none}
+@media(min-width:640px){
+  .eyebrow{font-size:14px;line-height:20px}
+  .slide h1,.slide h2{font-size:48px;line-height:48px}
+  .lead{font-size:18px;line-height:28px}
+  .slide-cta{flex-direction:row}
+}
+@media(min-width:768px){.slide-cta.md-up{display:flex}}
+@media(min-width:1024px){
+  .slide-in{display:block;height:auto;min-height:0;aspect-ratio:21/9}
+  .slide-copy{position:absolute;inset:0 0 80px 0;padding-bottom:0}
+  .slide h1,.slide h2{font-size:60px;line-height:60px}
+}
+.arrow{position:absolute;top:50%;z-index:10;display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:9999px;background:rgba(244,244,244,.9);color:var(--navy);box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transform:translateY(-50%);transition:background-color .2s,box-shadow .2s,transform .2s}
+.arrow:hover{background:var(--white-warm);box-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1)}
+@media(prefers-reduced-motion:no-preference){.arrow:hover{transform:translateY(calc(-50% - .25rem))}}
+.arrow svg{width:20px;height:20px}
+.arrow.prev{left:12px}
+.arrow.next{right:12px}
+@media(min-width:768px){.arrow.prev{left:16px}.arrow.next{right:16px}}
+.dots{position:absolute;left:0;right:0;bottom:16px;z-index:10;display:flex;align-items:center;justify-content:center;gap:8px}
+@media(min-width:768px){.dots{bottom:24px}}
+.dot{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:9999px}
+.dot span{display:block;width:10px;height:10px;border-radius:9999px;background:rgba(244,244,244,.5);transition:all .2s}
+.dot:hover span{background:rgba(244,244,244,.7)}
+.dot[aria-selected="true"] span{width:24px;background:var(--white-warm)}
+
+/* ---------- Marquesina de servicios ---------- */
+.mq{position:relative;width:100%;overflow:hidden;background:var(--navy);-webkit-user-select:none;user-select:none}
+.mq-track{display:flex;width:max-content;height:44px;align-items:center}
+.mq-track ul{display:flex;flex:none;align-items:center}
+.mq-track li{display:flex;align-items:center;gap:20px;padding-right:20px}
+.mq-track li span{font-size:14px;line-height:20px;font-weight:600;letter-spacing:.025em;white-space:nowrap;color:var(--cream)}
+.mq-track li svg{width:16px;height:16px;flex:none;color:var(--pink)}
+@media(min-width:640px){
+  .mq-track{height:48px}
+  .mq-track li{gap:24px;padding-right:24px}
+  .mq-track li span{font-size:16px;line-height:24px}
+}
+@keyframes movet-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:no-preference){
+  .mq-track{animation:movet-marquee 48s linear infinite;animation-delay:-3.16s;will-change:transform}
+  .mq:hover .mq-track,.mq:focus-within .mq-track{animation-play-state:paused}
+}
+
+/* ---------- Cifras ---------- */
+.stats{background:var(--cream);padding:48px 0}
+.stats-grid{display:grid;grid-template-columns:1fr;gap:40px}
+.stat{display:flex;flex-direction:column;align-items:center;text-align:center}
+.stat-n{font-size:48px;line-height:1;font-weight:700;color:var(--navy)}
+.stat-l{margin-top:12px;font-size:16px;line-height:24px;font-weight:500;color:rgba(33,24,124,.8)}
+@media(min-width:640px){.stats{padding:64px 0}}
+@media(min-width:1024px){
+  .stats{padding:80px 0}
+  .stats-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+  .stat{align-items:flex-start;text-align:left}
+  .stat-n{font-size:60px}
+  .stat-l{font-size:18px;line-height:28px}
+}
+@media(min-width:1280px){.stats-grid{gap:48px}}
+
+/* ---------- Secciones de contenido ---------- */
+.sec{background:var(--white-warm);padding:48px 0}
+@media(min-width:640px){.sec{padding:64px 0}}
+@media(min-width:1024px){.sec{padding:80px 0}}
+.h2{font-size:24px;line-height:32px;font-weight:700;color:var(--navy)}
+@media(min-width:640px){.h2{font-size:30px;line-height:36px}}
+.sub{margin-top:8px;max-width:42rem;font-size:16px;line-height:24px;color:rgba(33,24,124,.7)}
+.cards{display:grid;grid-template-columns:1fr;gap:16px;margin-top:32px}
+@media(min-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1024px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{border:1px solid var(--border);border-radius:16px;background:#fff;padding:24px}
+.card-ic{display:flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:9999px;background:#fce4f2;color:var(--pink)}
+.card-ic svg{width:20px;height:20px}
+.card h3{margin-top:16px;font-size:16px;line-height:24px;font-weight:600;color:var(--navy)}
+.card p{margin-top:8px;font-size:14px;line-height:20px;color:rgba(33,24,124,.7)}
+@media(min-width:640px){.card h3{font-size:18px;line-height:28px}.card p{font-size:16px;line-height:24px}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chip{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:9999px;background:var(--cream);font-size:14px;line-height:20px;font-weight:600;color:var(--navy)}
+.h3{font-size:18px;line-height:28px;font-weight:600;color:var(--navy)}
+.city-tag{display:inline-flex;align-items:center;margin-top:12px;padding:2px 10px;border-radius:9999px;background:var(--cream);font-size:12px;line-height:16px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--navy)}
+.next-open{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;border-radius:16px;background:var(--navy);color:var(--white-warm);padding:20px 24px}
+.next-open p{font-size:16px;line-height:24px}
+.next-open strong{font-weight:600}
+.sec-cta{margin-top:24px}
+
+/* ---------- FAQ ---------- */
+.faq{margin-top:32px}
+.faq > div{border:1px solid var(--border);border-radius:16px;background:#fff;padding:24px}
+.faq > div + div{margin-top:24px}
+.faq dt{font-size:16px;line-height:24px;font-weight:600;color:var(--navy)}
+.faq dd{margin-top:8px;font-size:14px;line-height:20px;color:rgba(33,24,124,.7)}
+@media(min-width:640px){.faq dt{font-size:18px;line-height:28px}.faq dd{font-size:16px;line-height:24px}}
+
+/* ---------- Emergencia ---------- */
+.emerg{background:var(--navy);color:var(--white-warm);padding:48px 0}
+@media(min-width:640px){.emerg{padding:64px 0}}
+@media(min-width:1024px){.emerg{padding:80px 0}}
+.emerg-row{display:flex;flex-direction:column;align-items:flex-start;gap:24px}
+@media(min-width:640px){.emerg-row{flex-direction:row;align-items:center;justify-content:space-between}}
+.emerg .eyebrow{font-size:12px;line-height:16px}
+.emerg h2{margin-top:8px;font-size:24px;line-height:32px;font-weight:700;color:var(--white-warm)}
+.emerg p.t{margin-top:12px;max-width:36rem;color:rgba(244,244,244,.8)}
+.emerg .btn{display:none}
+@media(min-width:640px){.emerg .eyebrow{font-size:14px;line-height:20px}.emerg h2{font-size:30px;line-height:36px}}
+@media(min-width:768px){.emerg .btn{display:inline-flex;font-weight:500}}
+@media(min-width:1024px){.emerg h2{font-size:36px;line-height:40px}}
+
+/* ---------- Footer ---------- */
+.foot{border-top:1px solid var(--border);background:var(--navy);color:var(--white-warm)}
+.foot-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding:16px 0;font-size:14px;line-height:20px}
+.foot-row > *{min-height:44px;display:inline-flex;align-items:center}
+.foot .dim{color:rgba(244,244,244,.7)}
+.foot a,.foot .lnk{color:rgba(244,244,244,.8);transition:color .2s}
+.foot a:hover,.foot .lnk:hover{color:var(--white-warm)}
+.foot ul.soc{margin-left:auto;display:flex;align-items:center;gap:8px;min-height:0}
+.foot ul.soc a{display:inline-flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:9999px}
+.foot ul.soc svg{width:20px;height:20px}
+.foot a.em{color:var(--white-warm);font-weight:500;white-space:nowrap}
+.foot a.em:hover{text-decoration:underline}
+.foot a:focus-visible{outline-color:var(--white-warm)}
+
+/* ---------- Barra móvil (solo a la izquierda: la derecha es del launcher del agente) ---------- */
+.mbar{position:fixed;left:8px;bottom:8px;z-index:50;display:flex;align-items:center;gap:8px}
+.mbar a{display:inline-flex;height:56px;align-items:center;justify-content:center;gap:8px;border-radius:9999px;font-weight:600;box-shadow:0 4px 6px -1px rgba(0,0,0,.18),0 2px 4px -2px rgba(0,0,0,.18)}
+.mbar .em{padding:0 20px;background:var(--red);color:var(--white-warm);font-size:16px;line-height:24px;white-space:nowrap}
+.mbar .em svg,.mbar .wa svg{width:20px;height:20px;flex:none}
+.mbar .wa{width:56px;background:var(--wa);color:var(--navy)}
+.mbar .wa svg{width:24px;height:24px}
+@media(max-width:374px){.mbar .wa{display:none}}
+@media(min-width:768px){.mbar{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+
+<header class="hdr">
+  <div class="wrap7">
+    <div class="hdr-row">
+      <div class="hdr-left">
+        <button type="button" class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="mmenu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+        </button>
+        <a class="logo" href="#inicio" aria-label="Movet — Inicio"><svg viewBox="0.5 0.5 153.59 50.52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M37.2587 25.5055C37.2587 35.5798 29.0293 43.7459 18.8771 43.7459C8.72487 43.7459 0.5 35.5798 0.5 25.5055C0.5 15.4312 8.72935 7.26953 18.8816 7.26953C29.0338 7.26953 37.2631 15.4357 37.2631 25.51" fill="#FF001E" fill-rule="evenodd" clip-rule="evenodd"/><path d="M26.8066 44.3027C26.8066 45.9796 25.4351 47.3406 23.7453 47.3406C22.0555 47.3406 20.6839 45.9796 20.6839 44.3027H16.9727C16.9727 48.0078 20.0116 51.0234 23.7453 51.0234C27.2145 51.0234 30.0787 48.4258 30.4686 45.0855L26.8066 44.3027Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M16.9722 44.2969C16.9722 45.9737 15.6006 47.3347 13.9108 47.3347C12.221 47.3347 10.8495 45.9737 10.8495 44.2969L7.1875 45.0797C7.57745 48.42 10.4461 51.0175 13.9108 51.0175C17.6445 51.0175 20.6835 48.0019 20.6835 44.2969H16.9722Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M20.7367 39.8184H17.0254V46.7347H20.7367V39.8184Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M21.7408 38.9471C21.7408 40.5127 20.4589 41.7848 18.8811 41.7848C17.3034 41.7848 16.0215 40.5127 16.0215 38.9471C16.0215 37.3814 17.3034 36.1094 18.8811 36.1094C20.4589 36.1094 21.7408 37.3814 21.7408 38.9471Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M33.5781 27.2224H29.3962V10.1517L20.1539 27.2224H17.5004L8.25808 10.1517V27.2224H4.07617V0.5H7.85468L18.8271 20.7197L29.84 0.5H33.5781V27.2224Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M75.4291 40.0193H71.2517V22.9486L62.0049 40.0193H59.3559L50.1091 22.9486V40.0193H45.9316V13.2969H49.7101L60.6781 33.5166L71.6909 13.2969H75.4291V40.0193Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M95.4245 22.6899C97.4729 24.6158 98.4993 27.0977 98.4993 30.1266C98.4993 33.1556 97.4684 35.6419 95.4066 37.5856C93.3448 39.5248 90.8258 40.4989 87.8496 40.4989C84.8734 40.4989 82.3095 39.5293 80.2343 37.5856C78.159 35.6463 77.1191 33.16 77.1191 30.1266C77.1191 27.0932 78.159 24.6158 80.2343 22.6899C82.3095 20.764 84.851 19.7988 87.8496 19.7988C90.8482 19.7988 93.3761 20.764 95.4245 22.6899ZM92.4707 35.0148C93.784 33.7516 94.4384 32.1237 94.4384 30.1311C94.4384 28.1385 93.784 26.5106 92.4707 25.2474C91.1574 23.9842 89.6156 23.3526 87.8496 23.3526C86.0836 23.3526 84.4655 23.9842 83.1656 25.2474C81.8658 26.5106 81.2159 28.1385 81.2159 30.1311C81.2159 32.1237 81.8658 33.7516 83.1656 35.0148C84.4655 36.2779 86.0253 36.9095 87.8496 36.9095C89.6738 36.9095 91.1574 36.2779 92.4707 35.0148Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M110.175 40.0192H105.715L97.1543 20.1953H101.699L107.965 35.0732L114.236 20.1953H118.777L110.175 40.0192Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M137.695 31.1225H121.541C121.73 32.9016 122.397 34.3249 123.549 35.3879C124.701 36.4509 126.042 36.9847 127.57 36.9847C130.331 36.9847 132.285 35.8416 133.437 33.5554L137.175 34.3516C136.373 36.3976 135.131 37.9454 133.46 38.9995C131.783 40.0492 129.825 40.574 127.57 40.574C124.782 40.574 122.393 39.6044 120.398 37.6607C118.404 35.7215 117.404 33.2218 117.404 30.1617C117.404 27.1017 118.404 24.5575 120.398 22.6049C122.393 20.6523 124.84 19.6738 127.731 19.6738C130.439 19.6738 132.747 20.6123 134.665 22.4848C136.579 24.3574 137.592 26.7592 137.7 29.6814V31.118L137.695 31.1225ZM123.872 24.6242C122.693 25.4738 121.958 26.6569 121.662 28.1736H133.397C133.074 26.6035 132.406 25.407 131.389 24.5842C130.371 23.7614 129.152 23.3477 127.731 23.3477C126.31 23.3477 125.051 23.7747 123.872 24.6242Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/><path d="M145.853 33.2754C145.853 34.3384 146.122 35.1702 146.656 35.7662C147.194 36.3622 147.929 36.6646 148.865 36.6646C150.017 36.6646 151.142 36.3044 152.241 35.5883L153.487 39.0576C151.824 40.0672 150.192 40.5743 148.583 40.5743C146.387 40.5743 144.684 39.9649 143.478 38.7418C142.272 37.5186 141.671 35.8062 141.671 33.5957V23.6637H137.373V20.2345H141.671V12.5753L145.849 11.2988V20.23H154.087V23.6593H145.849V33.271L145.853 33.2754Z" fill="#0E2288" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+      </div>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul>
+          <li><a class="nav-i" href="#especialidades">Especialidades<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a></li>
+          <li><a class="nav-i" href="#servicios">Servicios<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a></li>
+          <li><a class="nav-i" href="#clinicas">Clínicas<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a></li>
+          <li><a class="nav-i" href="#cifras">Nosotros</a></li>
+          <li><a class="nav-i" href="#">Trabaja con nosotros</a></li>
+        </ul>
+      </nav>
+      <div class="hdr-cta">
+        <a class="hbtn hbtn-wa" href="./whatsapp.html" aria-label="Agendar por WhatsApp una cita en Movet">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+          <span class="t-full">Agendar por WhatsApp</span><span class="t-short">WhatsApp</span>
+        </a>
+        <a class="hbtn hbtn-em" href="tel:%23909" aria-label="Llamar a la línea de emergencia #909">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+          <span class="t-xl">Emergencia · </span>#909
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="mmenu" id="mmenu" hidden>
+    <a href="#especialidades">Especialidades</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#clinicas">Clínicas</a>
+    <a href="#cifras">Nosotros</a>
+    <a href="#">Trabaja con nosotros</a>
+    <a href="./whatsapp.html">Agendar por WhatsApp</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- Hero: carrusel de 3 diapositivas -->
+  <section class="hero" id="inicio" aria-roledescription="carousel" aria-label="Hero principal — Movet">
+    <div class="slides" id="slides">
+
+      <div class="slide" data-p="0" role="group" aria-roledescription="slide" aria-label="1 de 3">
+        <div class="slide-in">
+          <img class="bg" src="./assets/909-bogota-desktop.webp" alt="Línea #909 de urgencias veterinarias Movet sobre vista aérea de Bogotá" fetchpriority="high" decoding="async">
+          <div class="veil" aria-hidden="true"></div>
+          <div class="slide-copy">
+            <div class="wrap">
+              <div class="tc">
+                <p class="eyebrow">Urgencias veterinarias 24/7</p>
+                <h1>Marca #909. Atendemos a tu mascota ahora.</h1>
+                <p class="lead">#909 es la línea de urgencias veterinarias de Movet, disponible 24 horas para perros y gatos. Un médico contesta, evalúa el caso y te guía a la clínica más cercana.</p>
+                <div class="slide-cta md-up">
+                  <a class="btn btn-red btn-md" href="tel:%23909" aria-label="Llamar a urgencias veterinarias 24/7 #909">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Llamar al #909
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-p="1" role="group" aria-roledescription="slide" aria-label="2 de 3" aria-hidden="true" inert>
+        <div class="slide-in">
+          <img class="bg" src="./assets/image-2n8o.avif" alt="Fachada de Movet Fabricato, la clínica veterinaria de Movet en el Centro Comercial Fabricato, Antioquia, con aviso de urgencias 24 horas" loading="lazy" decoding="async">
+          <div class="veil v2" aria-hidden="true"></div>
+          <div class="slide-copy">
+            <div class="wrap">
+              <div class="tc">
+                <p class="eyebrow">Ya estamos en Antioquia</p>
+                <h2>Abrimos Movet Fabricato, nuestra primera clínica en Antioquia.</h2>
+                <p class="lead">Nuestra nueva clínica abre en el Centro Comercial Fabricato, en Antioquia, y es la primera sede de Movet fuera de Bogotá. Atiende perros y gatos las 24 horas, todos los días, con el mejor equipo médico.</p>
+                <div class="slide-cta">
+                  <a class="btn btn-navy btn-lg" style="font-weight:500" href="#clinicas">Conocer la apertura</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide" data-p="-1" role="group" aria-roledescription="slide" aria-label="3 de 3" aria-hidden="true" inert>
+        <div class="slide-in">
+          <img class="bg" src="./assets/image-bgau.avif" alt="Equipo médico veterinario Movet en sala de cirugía" loading="lazy" decoding="async">
+          <div class="veil" aria-hidden="true"></div>
+          <div class="slide-copy">
+            <div class="wrap">
+              <div class="tc">
+                <p class="eyebrow">Equipo médico Movet</p>
+                <h2>Veterinarios que cuidan a tu mascota como propia.</h2>
+                <p class="lead">Detrás de cada consulta, cirugía y urgencia hay un equipo de médicos veterinarios con formación especializada y protocolos clínicos propios. Así cumplimos la promesa: larga vida para tu mascota.</p>
+                <div class="slide-cta">
+                  <a class="btn btn-wa btn-lg" href="./whatsapp.html" aria-label="Agendar por WhatsApp una consulta con el equipo médico Movet">Agendar por WhatsApp</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button type="button" class="arrow prev" aria-label="Slide anterior"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+    <button type="button" class="arrow next" aria-label="Slide siguiente"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+    <div class="dots" role="tablist" aria-label="Selector de slide">
+      <button type="button" class="dot" role="tab" aria-label="Ir al slide 1" aria-selected="true"><span aria-hidden="true"></span></button>
+      <button type="button" class="dot" role="tab" aria-label="Ir al slide 2" aria-selected="false"><span aria-hidden="true"></span></button>
+      <button type="button" class="dot" role="tab" aria-label="Ir al slide 3" aria-selected="false"><span aria-hidden="true"></span></button>
+    </div>
+  </section>
+
+  <!-- Marquesina de servicios -->
+  <div class="mq" role="group" aria-label="Servicios de Movet">
+    <div class="mq-track">
+      <ul>
+        <li><span>Urgencias 24/7</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Consulta veterinaria</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Vacunación</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Laboratorio clínico</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Farmacia veterinaria</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Hospitalización</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+      </ul>
+      <ul aria-hidden="true">
+        <li><span>Urgencias 24/7</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Consulta veterinaria</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Vacunación</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Laboratorio clínico</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Farmacia veterinaria</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+        <li><span>Hospitalización</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Cifras -->
+  <section class="stats" id="cifras" aria-labelledby="stats-title">
+    <div class="wrap7">
+      <h2 id="stats-title" class="sr-only">Movet en cifras</h2>
+      <div class="stats-grid">
+        <div class="stat">
+          <span class="stat-n" role="img" aria-label="19 sedes en la red Movet, 16 ya abiertas"><span aria-hidden="true">19</span></span>
+          <span class="stat-l">sedes en la red · 16 ya abiertas</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n" role="img" aria-label="466.738 atenciones realizadas"><span aria-hidden="true">466.738</span></span>
+          <span class="stat-l">atenciones realizadas</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n" role="img" aria-label="124.145 mascotas atendidas"><span aria-hidden="true">124.145</span></span>
+          <span class="stat-l">mascotas atendidas</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios y especialidades (versión simplificada) -->
+  <section class="sec" id="servicios" aria-labelledby="servicios-title">
+    <div class="wrap">
+      <h2 class="h2" id="servicios-title">Servicios</h2>
+      <p class="sub">Hospital, especialidades médicas y servicios integrales para perros y gatos.</p>
+      <div class="cards">
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Urgencias 24/7</h3>
+          <p>Marca #909 y un médico contesta, evalúa el caso y te guía a la clínica más cercana. Atendemos los 365 días del año.</p>
+        </div>
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Consulta veterinaria</h3>
+          <p>Para consulta general recomendamos agendar con anticipación para garantizar disponibilidad.</p>
+        </div>
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Vacunación</h3>
+          <p>Servicio disponible en las clínicas Movet para perros y gatos.</p>
+        </div>
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Laboratorio clínico</h3>
+          <p>Apoyo diagnóstico en nuestras clínicas para que el médico tenga el cuadro completo de tu mascota.</p>
+        </div>
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Farmacia veterinaria</h3>
+          <p>Medicamentos y productos veterinarios disponibles en las clínicas Movet.</p>
+        </div>
+        <div class="card">
+          <span class="card-ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="4" r="2"/><circle cx="18" cy="8" r="2"/><circle cx="20" cy="16" r="2"/><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"/></svg></span>
+          <h3>Hospitalización</h3>
+          <p>Unidad de hospitalización con monitoreo veterinario 24 horas, oxigenoterapia, fluidoterapia y cuidado intensivo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="especialidades" aria-labelledby="esp-title" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2" id="esp-title">Especialidades médicas</h2>
+      <div class="chips">
+        <span class="chip">Cardiología</span>
+        <span class="chip">Neurología</span>
+        <span class="chip">Nefrología</span>
+        <span class="chip">Nutrición</span>
+        <span class="chip">Odontología</span>
+        <span class="chip">Oftalmología</span>
+        <span class="chip">Oncología</span>
+        <span class="chip">Ortopedia</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="clinicas" aria-labelledby="clinicas-title" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2" id="clinicas-title">Clínicas</h2>
+      <p class="sub">Movet atiende hoy en Bogotá, Medellín, Manizales y Pereira, con 16 sedes abiertas: 12 clínicas con urgencias 24 horas, todos los días, y 4 puntos Movet Express de atención ambulatoria.</p>
+      <div class="cards">
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Bogotá</h3>
+          <span class="city-tag">13 puntos de atención</span>
+          <p>Once clínicas con urgencias 24 horas: Colina, Chapinero, Castilla, Salitre, Parkway, Calle 80, Calle 109, Bulevar Niza, Acuarela en Suba, Cedritos y Ciudad Montes en Puente Aranda.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Bogotá · Movet Express</h3>
+          <span class="city-tag">Puntos ambulatorios</span>
+          <p>Calle 153 en Usaquén y Calle 170 en el norte, abiertos todos los días de 8:00 a. m. a 8:00 p. m.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Medellín</h3>
+          <span class="city-tag">Urgencias 24 horas</span>
+          <p>Clínica Veterinaria Movet Fabricato, en el Centro Comercial Fabricato, Antioquia. Atiende perros y gatos las 24 horas, todos los días.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Manizales</h3>
+          <span class="city-tag">Ya abierta</span>
+          <p>Movet atiende hoy en Manizales. Si es una urgencia, llámanos al #909 a cualquier hora.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Pereira</h3>
+          <span class="city-tag">Ya abierta</span>
+          <p>Movet atiende hoy en Pereira. Si es una urgencia, llámanos al #909 a cualquier hora.</p>
+        </div>
+        <div class="card">
+          <h3 class="h3" style="margin-top:0">Muy pronto</h3>
+          <span class="city-tag">Próximas aperturas</span>
+          <p>Medellín (Laureles y Envigado) y Cali.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="sec" id="preguntas" style="padding-top:0">
+    <div class="wrap">
+      <div>
+        <h2 class="h2">Preguntas frecuentes</h2>
+        <dl class="faq">
+          <div><dt>¿Atienden urgencias las 24 horas?</dt><dd>Sí. Las clínicas Movet con urgencias las 24 horas están en Bogotá y en Medellín (Clínica Veterinaria Movet Fabricato), y atienden los 365 días del año. Para comunicarte con urgencias, marca #909 desde tu celular en cualquier momento.</dd></div>
+          <div><dt>¿Atienden solo perros y gatos?</dt><dd>Movet está enfocado en medicina de perros y gatos. Para otras especies recomendamos contactar especialistas en animales exóticos.</dd></div>
+          <div><dt>¿Cuántas clínicas tiene Movet y en qué ciudades?</dt><dd>Movet atiende hoy en Bogotá, Medellín, Manizales y Pereira, con 16 sedes abiertas: 12 clínicas con urgencias 24 horas, todos los días, y 4 puntos Movet Express de atención ambulatoria. Muy pronto abriremos también en Medellín (Laureles y Envigado) y Cali. Si es una urgencia, llámanos al #909 a cualquier hora.</dd></div>
+          <div><dt>¿Cuántas clínicas tienen en Bogotá?</dt><dd>Movet tiene trece puntos de atención en Bogotá: once clínicas con urgencias 24 horas (Colina, Chapinero, Castilla, Salitre, Parkway, Calle 80, Calle 109, Bulevar Niza, Acuarela en Suba, Cedritos y Ciudad Montes en Puente Aranda) y dos puntos de atención Movet Express (Calle 153 en Usaquén y Calle 170 en el norte), abiertos todos los días de 8:00 a. m. a 8:00 p. m.</dd></div>
+          <div><dt>¿Necesito cita previa para una consulta?</dt><dd>Para consulta general recomendamos agendar con anticipación para garantizar disponibilidad. Para urgencias no se requiere cita: el tutor puede llegar directamente a la clínica más cercana o marcar #909 desde su celular para comunicarse con urgencias las 24 horas.</dd></div>
+          <div><dt>¿Cómo agendo una cita?</dt><dd>La cita se agenda directamente en la recepción de cualquier clínica Movet en Bogotá. Nuestro equipo te ayuda a encontrar el horario que mejor se acomode a ti y a tu mascota.</dd></div>
+          <div><dt>¿Qué medios de pago aceptan?</dt><dd>Las clínicas Movet aceptan efectivo, tarjeta débito, tarjeta crédito y transferencia. Para confirmar otros medios de pago disponibles, recomendamos consultar directamente en la clínica.</dd></div>
+          <div><dt>¿Tienen servicios de hospitalización?</dt><dd>Sí. Movet cuenta con unidad de hospitalización con monitoreo veterinario 24 horas, oxigenoterapia, fluidoterapia y cuidado intensivo para perros y gatos que lo requieran.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergencia -->
+  <section class="emerg" id="emergencia">
+    <div class="wrap">
+      <div class="emerg-row">
+        <div>
+          <p class="eyebrow">Línea 24/7</p>
+          <h2>Emergencia con tu mascota — estamos para ayudarte</h2>
+          <p class="t">Atención veterinaria inmediata, los 365 días del año, en todas nuestras clínicas de Bogotá.</p>
+        </div>
+        <a class="btn btn-red btn-lg" style="font-weight:500" href="tel:%23909" aria-label="Llamar a la línea de emergencia #909">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Emergencia · #909
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap7">
+    <div class="foot-row">
+      <span class="dim">© 2026 Movet</span>
+      <a href="#cifras">Nosotros</a>
+      <a href="mailto:sac@movet.co?subject=PQR%20Movet" aria-label="Enviar PQR a Servicio al Cliente Movet (sac@movet.co)">PQR</a>
+      <a href="#">T&amp;C</a>
+      <a href="#">Política de tratamiento de datos</a>
+      <a href="#">Política de cookies</a>
+      <a href="#" class="lnk">Preferencias de cookies</a>
+      <ul class="soc" aria-label="Redes sociales">
+        <li><a href="https://www.instagram.com/movet.co/" target="_blank" rel="noopener noreferrer" aria-label="Movet en Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/company/movet-colombia/" target="_blank" rel="noopener noreferrer" aria-label="Movet en LinkedIn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li>
+        <li><a href="https://www.tiktok.com/@movet_co" target="_blank" rel="noopener noreferrer" aria-label="Movet en TikTok"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></li>
+      </ul>
+      <a class="em" href="tel:%23909" aria-label="Llamar a la línea de emergencia #909">Emergencia · #909 · 24h</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Barra móvil: queda a la izquierda a propósito (la esquina inferior derecha es del launcher del agente) -->
+<div class="mbar" role="region" aria-label="Acciones de emergencia">
+  <a class="em" href="tel:%23909" aria-label="Llamar a la línea de emergencia #909">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>Emergencia · #909
+  </a>
+  <a class="wa" href="./whatsapp.html" aria-label="Agendar una cita en Movet por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+  </a>
+</div>
+
+<script>
+(function () {
+  // Carrusel del hero: 3 diapositivas, avance automático ~6 s, flechas y puntos.
+  var root = document.getElementById('inicio');
+  if (root) {
+    var slides = [].slice.call(root.querySelectorAll('.slide'));
+    var dots = [].slice.call(root.querySelectorAll('.dot'));
+    var n = slides.length, cur = 0, timer = null, paused = false;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function posOf(i, c) { var d = (i - c + n) % n; return d === 0 ? 0 : (d === 1 ? 1 : -1); }
+    function place(c) {
+      slides.forEach(function (s, i) {
+        var p = posOf(i, c), old = parseInt(s.getAttribute('data-p'), 10);
+        var jump = Math.abs(p - old) > 1;   // salto fuera de cuadro: sin transición
+        if (jump) s.style.transition = 'none';
+        s.setAttribute('data-p', p);
+        if (jump) { void s.offsetWidth; s.style.transition = ''; }
+        s.setAttribute('aria-hidden', p === 0 ? 'false' : 'true');
+        if (p === 0) s.removeAttribute('inert'); else s.setAttribute('inert', '');
+      });
+      dots.forEach(function (d, i) { d.setAttribute('aria-selected', i === c ? 'true' : 'false'); });
+    }
+    function go(k) { cur = (k + n) % n; place(cur); }
+    function start() { stop(); if (!reduce) timer = setInterval(function () { if (!paused && !document.hidden) go(cur + 1); }, 6000); }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    root.querySelector('.arrow.prev').addEventListener('click', function () { go(cur - 1); start(); });
+    root.querySelector('.arrow.next').addEventListener('click', function () { go(cur + 1); start(); });
+    dots.forEach(function (d, i) { d.addEventListener('click', function () { go(i); start(); }); });
+    root.addEventListener('mouseenter', function () { paused = true; });
+    root.addEventListener('mouseleave', function () { paused = false; });
+    root.addEventListener('focusin', function () { paused = true; });
+    root.addEventListener('focusout', function () { paused = false; });
+    place(0);
+    start();
+  }
+  // Menú móvil
+  var b = document.getElementById('burger'), m = document.getElementById('mmenu');
+  if (b && m) {
+    b.addEventListener('click', function () {
+      var open = m.hasAttribute('hidden');
+      if (open) m.removeAttribute('hidden'); else m.setAttribute('hidden', '');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    [].slice.call(m.querySelectorAll('a')).forEach(function (a) {
+      a.addEventListener('click', function () { m.setAttribute('hidden', ''); b.setAttribute('aria-expanded', 'false'); });
+    });
+  }
+})();
+</script>
+  <div data-ijv-demo-badge style="position:relative;z-index:1;padding:14px 16px 90px;text-align:center;font:400 12px/1.5 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#94a3b8;background:#0f172a">
+    Demo preparada por <a href="https://ijvagency.com/" target="_blank" rel="noopener noreferrer" style="color:#cbd5e1;text-decoration:underline">IJV Agency</a> para Movet — sitio de muestra, no es la web oficial.
+  </div>
+  <script>
+window["movetAgentConfig"] = Object.assign(window["movetAgentConfig"] || {}, { webhook: "https://meta.ijvagency.com/webhook/movet-demo-agent", leadsWebhook: "https://meta.ijvagency.com/webhook/movet-demo-leads" });
+/* ============================================================================
+ * MOVET — Widget de chat embebible (IJV Agency)
+ * ----------------------------------------------------------------------------
+ * Generado por IJV Factory — NO editar a mano: cambios van al factory.config.json
+ * y se regenera. Patrón canónico extraído de mmdent/widget/agent.js.
+ *
+ * Distribución recomendada vía jsDelivr (repo público):
+ *   https://cdn.jsdelivr.net/gh/nachojr2003/movet-site@main/widget/agent.js
+ *
+ * Uso en el sitio del cliente:
+ *   <script>
+ *     window.movetAgentConfig = { }; // overrides opcionales — los defaults van embebidos
+ *   <\/script>
+ *   <script src=".../widget/agent.js" defer><\/script>
+ *
+ * Sin dependencias externas. IIFE puro, vanilla JS (ES5).
+ * ============================================================================ */
+(function () {
+  'use strict';
+
+  /* ---------------- Config con DEFAULTS embebidos (regla #11: si el
+   * integrador pasa config parcial, NADA queda undefined) ---------------- */
+  var DEFAULTS = {
+    n8nBase:        "https://meta.ijvagency.com",
+    webhook:        null,
+    leadsWebhook:   null,
+    privacyUrl:     '/politica-privacidad',
+    logoUrl:        "https://movet-demo.vercel.app/movet-logo.png",
+    /* Fondo del chip del logo (launcher + encabezado). Default blanco. Un logo
+     * que YA trae su plato oscuro (regla #104) declara `brand.logo.fondo` con
+     * ese mismo color: si no, queda un cuadrado blanco detrás (regla #133). */
+    logoBg:         "#FFFFFF",
+    primary:        '#21187c',
+    secondary:      '#990099',
+    accent:         '#F5F5F5',
+    fontFamily:     "Space Grotesk,system-ui,-apple-system,'Segoe UI',sans-serif,'Segoe UI Emoji','Apple Color Emoji','Noto Color Emoji'",
+    timeoutMs:      45000,   /* >= 30s: queries con RAG completo cortan a 15s (regla #10).
+                              * 45000 y no 40000: la espera real que ve el usuario es
+                              * timeoutMs × (1 + maxRetries), así que el knob que importa
+                              * es maxRetries. Un turno vivo nunca llega a 40s (RAG p99
+                              * ~10s + self-call del retry-on-empty ~5s, regla #84): entre
+                              * 40 y 45 solo cambia cuánto tarda en rendirse lo ya muerto. */
+    maxRetries:     1,
+    typewriter:     true,
+    typewriterCps:  90,
+    agentName:      "el asistente de Movet",
+    clientName:     "Movet",
+    /* Subtítulo del encabezado: dice a QUÉ ATIENDE el agente, nunca qué es. Una
+     * etiqueta de bot aquí lo delata antes de que escriba una palabra (regla
+     * #114). Se personaliza con `agente.subtitulo_widget` en el config. */
+    headerSubtitle: "Orientación y citas",
+
+
+    welcomeMessage: "Hola, soy el asistente de Movet. Te ayudo a orientarte y a agendar la cita de tu mascota.\nSi es una urgencia, no esperes: marca #909 desde tu celular, las 24 horas.\n¿En qué te puedo ayudar?"
+  };
+  var CFG = window.movetAgentConfig = window.movetAgentConfig || {};
+  for (var k in DEFAULTS) { if (CFG[k] === undefined || CFG[k] === null) CFG[k] = DEFAULTS[k]; }
+  if (!CFG.webhook)      CFG.webhook      = CFG.n8nBase + '/webhook/movet-agent';
+  if (!CFG.leadsWebhook) CFG.leadsWebhook = CFG.n8nBase + '/webhook/movet-leads';
+
+  /* ¿El fondo del chip del logo es oscuro? Decide el color del ícono de
+   * fallback del launcher (regla #95): primario sobre blanco, blanco sobre un
+   * plato oscuro. Luminancia BT.601, mismo criterio que la página del cierre. */
+  function esColorOscuro(hex) {
+    var m = /^#?([0-9a-f]{6})$/i.exec(String(hex || '').trim());
+    if (!m) return false;
+    var n = parseInt(m[1], 16), r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return (r * 299 + g * 587 + b * 114) / 1000 < 128;
+  }
+  var logoBgOscuro = esColorOscuro(CFG.logoBg);
+
+  var QUICK_BUTTONS = [{"label":"Mi mascota se ve mal","mensaje":"Mi mascota se ve mal y necesita atención ahora"},{"label":"Agendar una consulta","mensaje":"Quiero agendar una consulta para mi mascota"},{"label":"Sedes y horarios","mensaje":"¿Qué sedes tienen y en qué horario atienden?"}];
+
+  /* ---------------- Utilidades ---------------- */
+  function escapeHtml(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function parseMd(text) {
+    var s = escapeHtml(text);
+    s = s.replace(/```([\s\S]*?)```/g, function (_, c) { return '<pre>' + c + '</pre>'; });
+    s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+    s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    s = s.replace(/(^|[^*])\*([^*\n]+)\*/g, '$1<em>$2</em>');
+    s = s.replace(/\[([^\]]+)\]\((https?:[^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener">$1</a>');
+    s = s.replace(/(^|\s)(https?:\/\/[^\s<]+)/g,
+      '$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+    s = s.replace(/(^|\n)- (.+)/g, '$1<li>$2</li>');
+    s = s.replace(/(<li>[\s\S]*?<\/li>)(?!\s*<li>)/g, '<ul>$1</ul>');
+    /* Regla #27: strip de placeholders alucinados por el LLM.
+       Restringido a placeholders CONOCIDOS: un strip genérico \[[a-z_]+\]
+       borraba texto legítimo entre corchetes (ej. "[PDF]", "[borrador]"). */
+    s = s.replace(/\{\{[^}]+\}\}/g, '').replace(/\{first_name\}/gi, '')
+      .replace(/\[(nombre|name|first_name|usuario|user)\]/gi, '');
+    /* Segunda capa: MARCAS INTERNAS del sistema. El nodo Finalize del workflow ya
+       las strippea; esto es la red por si un turno las deja pasar — el usuario
+       jamás debe leer "[CONSENT_OK]" ni "[PENDIENTE CLIENTE: precio]".
+       Lista EXPLÍCITA a propósito: un \[[A-Z_]{3,}\] genérico borraría texto
+       legítimo del negocio ("[PDF]", "[IVA]", "[RUC]") — misma lección que el
+       strip de placeholders de arriba (regla #27). Marca nueva en un workflow
+       ⇒ agregarla también aquí. */
+    s = s.replace(/\[\/?(CONSENT_OK|CONSENT|HANDOFF|ESCALATED|ESCALAR|LEAD_OK|NO_KB|IMG:[^\]]*|PENDIENTE[^\]]*)\]/gi, '');
+    s = s.replace(/\n{2,}/g, '</p><p>').replace(/\n/g, '<br>');
+    return '<p>' + s + '</p>';
+  }
+
+  /* ---------------- Fotos dentro del mensaje del agente ----------------
+   * Contrato (genérico, sirve para cualquier cliente que mande imágenes): si una
+   * línea del mensaje contiene SOLO una URL de imagen, esa línea se pinta como
+   * <img> y el resto del texto fluye normal. Cualquier otra URL sigue siendo un
+   * enlace de texto, como siempre.
+   *
+   * Se eligió URL cruda y no un marcador propio a propósito: si algo falla, el
+   * peor caso es que se vea una URL (feo pero funcional); un marcador roto se
+   * leería como basura. Y el `finalize` de los workflows no lo strippearía.
+   *
+   * Seguridad: SOLO https + extensión de imagen conocida. La regex no admite
+   * espacios, comillas ni `<`/`>`, así que no hay forma de colar `javascript:`,
+   * `data:` ni un atributo extra; además la URL se asigna por PROPIEDAD
+   * (img.src = …), nunca concatenada dentro de innerHTML. */
+  var RE_FOTO     = /^https:\/\/[^\s<>"']+\.(?:webp|jpe?g|png)(?:\?[^\s<>"']*)?$/i;
+  var RE_HAY_FOTO = /^[ \t]*https:\/\/[^\s<>"']+\.(?:webp|jpe?g|png)(?:\?[^\s<>"']*)?[ \t\r]*$/im;
+
+  function splitFotos(text) {
+    var out = [], buf = [];
+    function cierra() {
+      var t = buf.join('\n').replace(/^\n+/, '').replace(/\n+$/, '');
+      if (t.replace(/\s/g, '')) out.push({ tipo: 'texto', texto: t });
+      buf = [];
+    }
+    String(text == null ? '' : text).split('\n').forEach(function (l) {
+      var s = l.trim();
+      if (RE_FOTO.test(s)) { cierra(); out.push({ tipo: 'foto', url: s }); }
+      else buf.push(l);
+    });
+    cierra();
+    return out;
+  }
+  /* Texto sin las líneas de foto. Si no hay fotos devuelve el original TAL CUAL
+   * (idéntico byte a byte): así el camino de siempre no cambia en nada. */
+  function sinFotos(text) {
+    var s = String(text == null ? '' : text);
+    if (!RE_HAY_FOTO.test(s)) return s;
+    var out = [], bl = splitFotos(s);
+    for (var i = 0; i < bl.length; i++) if (bl[i].tipo === 'texto') out.push(bl[i].texto);
+    return out.join('\n\n');
+  }
+  /* alt descriptivo desde el nombre del archivo: ".../dormitorio-1.webp" -> "Foto: dormitorio 1" */
+  function altFoto(url) {
+    var n = url.split('?')[0].split('/').pop().replace(/\.[a-z]+$/i, '').replace(/[-_]+/g, ' ').trim();
+    return n ? ('Foto: ' + n) : 'Foto';
+  }
+  /* Regla #95: si la foto 404ea se oculta — jamás el ícono de imagen rota.
+   * Regla #19: el re-scroll al onload queda como red. Con el 4/3 reservado el
+   * alto ya es el final y no hace falta, pero si la foto real NO es 4:3 el alto
+   * cambia al cargar — ahí sí hay que volver a bajar (scrollToBottom trae el rAF
+   * que Safari/iOS necesita). */
+  function prepFoto(img) {
+    /* setProperty con prioridad `important` y no `style.display='none'` a secas:
+     * la regla .ijv-msg img.ijv-foto necesita `display:block!important` para
+     * ganarle al CSS anti-emoji (regla #15), y un display inline SIN important
+     * pierde contra ella — la foto rota quedaba visible. Verificado en vivo. */
+    var falla = function () {
+      if (img.style.setProperty) img.style.setProperty('display', 'none', 'important');
+      else img.style.display = 'none';
+    };
+    img.onerror = falla;
+    img.onload  = function () { scrollToBottom(); };
+    if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) falla();
+  }
+  /* Pinta el cuerpo de una burbuja del bot. Sin fotos ⇒ exactamente lo de antes. */
+  function renderBot(div, text) {
+    var s = String(text == null ? '' : text);
+    if (!RE_HAY_FOTO.test(s)) { div.innerHTML = parseMd(s); return; }
+    div.innerHTML = '';
+    if (div.className.indexOf('ijv-con-foto') < 0) div.className += ' ijv-con-foto';
+    var bl = splitFotos(s);
+    for (var i = 0; i < bl.length; i++) {
+      if (bl[i].tipo === 'foto') {
+        var img = document.createElement('img');
+        img.className = 'ijv-foto';
+        /* EAGER a propósito: `lazy` es para galerías largas fuera de pantalla.
+         * Aquí la foto entra al viewport en el mismo instante en que se pinta el
+         * mensaje, así que lazy solo agregaba latencia y dejaba un hueco blanco
+         * que se llenaba un segundo después. Son 1-2 fotos por mensaje. */
+        img.setAttribute('loading', 'eager');
+        img.setAttribute('fetchpriority', 'high');
+        img.setAttribute('decoding', 'async');
+        img.alt = altFoto(bl[i].url);
+        prepFoto(img);          /* handlers ANTES del src: un 404 instantáneo no se pierde */
+        img.src = bl[i].url;
+        div.appendChild(img);
+      } else {
+        /* Se desenvuelve el <p> del parseMd para que quede como hijo directo de
+         * .ijv-msg y le sigan aplicando los mismos estilos de siempre. */
+        var wrap = document.createElement('div');
+        wrap.innerHTML = parseMd(bl[i].texto);
+        while (wrap.firstChild) div.appendChild(wrap.firstChild);
+      }
+    }
+  }
+
+  function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+
+  /* Regla #61: TTL de inactividad — Cmd+Shift+R NO limpia sessionStorage; sin
+   * TTL la Simple Memory del agente arrastra la conversación vieja. */
+  var SESSION_TTL_MS = 30 * 60 * 1000;
+  var SS_PREFIX = 'movet_';
+  function getSessionId() {
+    var s = sessionStorage.getItem(SS_PREFIX + 'session_id');
+    var last = parseInt(sessionStorage.getItem(SS_PREFIX + 'session_last') || '0', 10);
+    var now = Date.now();
+    if (!s || (last && (now - last) > SESSION_TTL_MS)) {
+      s = uuid();
+      sessionStorage.setItem(SS_PREFIX + 'session_id', s);
+      sessionStorage.removeItem(SS_PREFIX + 'messages');
+    }
+    sessionStorage.setItem(SS_PREFIX + 'session_last', String(now));
+    return s;
+  }
+  function resetSession() {
+    sessionStorage.removeItem(SS_PREFIX + 'session_id');
+    sessionStorage.removeItem(SS_PREFIX + 'session_last');
+    sessionStorage.removeItem(SS_PREFIX + 'messages');
+    return getSessionId();
+  }
+
+  /* Persistencia de mensajes: sobreviven al refresh, no al cerrar la pestaña */
+  function loadMessages() {
+    try { return JSON.parse(sessionStorage.getItem(SS_PREFIX + 'messages') || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveMessage(role, text) {
+    try {
+      var m = loadMessages();
+      m.push({ role: role, text: text });
+      if (m.length > 60) m = m.slice(-60);
+      sessionStorage.setItem(SS_PREFIX + 'messages', JSON.stringify(m));
+    } catch (e) { /* quota: silencioso */ }
+  }
+
+  /* ---------------- CSS inyectado ----------------
+   * Regla #15: CSS defensivo para <img> (librerías emoji del sitio convierten
+   * unicode a <img>; sin esto un 👋 sale de 600px) + fuentes emoji en la pila. */
+  var CSS = [
+    /* --ijv-text es FIJO a proposito (regla de Nacho): las letras de los mensajes
+     * del agente van SIEMPRE en negro, nunca en un color de marca. El secundario
+     * queda solo para usos decorativos (gradiente del cal, toast). */
+    ':root{--ijv-primary:' + CFG.primary + ';--ijv-secondary:' + CFG.secondary + ';--ijv-accent:' + CFG.accent + ';--ijv-text:#111111;}',
+    /* El launcher y el chip del encabezado toman el color de fondo del logo
+     * (CFG.logoBg, default blanco): un badge oscuro sobre un chip blanco se ve
+     * como un parche (regla #133). El ícono de fallback (regla #95) hereda
+     * `color`, que se elige por contraste contra ese fondo. */
+    '.ijv-launcher{position:fixed;bottom:22px;right:22px;height:60px;padding:0 22px;border-radius:30px;background:' + CFG.logoBg + ';color:' + (logoBgOscuro ? '#fff' : 'var(--ijv-primary)') + ';border:0;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;z-index:2147483000;transition:transform .2s ease}',
+    '.ijv-launcher:hover{transform:scale(1.05)}',
+    /* Los logos (launcher y encabezado) blindados igual que las fotos: es la
+     * MISMA familia de bug que la regla #15 — un `img{width:100%!important}`
+     * global del sitio del cliente le ganaba al `width:auto` de aquí y
+     * deformaba el logo (el del encabezado se comía media ventana del chat).
+     * Verificado en vivo con un sitio anfitrión hostil. */
+    '.ijv-launcher img{height:36px!important;width:auto!important;max-width:none!important;display:block!important;object-fit:contain}',
+    '.ijv-root *,.ijv-root *::before,.ijv-root *::after{box-sizing:border-box}',
+    '.ijv-root{position:fixed;bottom:100px;right:22px;width:380px;max-width:calc(100vw - 24px);height:600px;max-height:calc(100vh - 120px);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden;z-index:2147483000;font-family:' + CFG.fontFamily + ';color:var(--ijv-text);transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .2s ease}',
+    '.ijv-root.ijv-open{transform:translateY(0);opacity:1;pointer-events:auto}',
+    '.ijv-head{background:var(--ijv-primary);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px}',
+    '.ijv-head img{height:44px!important;width:auto!important;max-width:none!important;background:' + CFG.logoBg + ';border-radius:10px;padding:6px 10px;flex-shrink:0;display:block!important}',
+    '.ijv-head .ijv-title{font-weight:700;font-size:15px;line-height:1.2}',
+    /* El subtítulo va SOLO con headerSubtitle (el nombre ya está en el título) y
+     * se recorta a 2 líneas como red: concatenado con el nombre del agente salía
+     * en 3 líneas en escritorio y 5 en móvil (regla #133). */
+    '.ijv-head .ijv-sub{font-size:12px;opacity:.85;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}',
+    '.ijv-head .ijv-actions{margin-left:auto;display:flex;gap:6px}',
+    '.ijv-head button{background:rgba(255,255,255,.15);border:0;color:#fff;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px}',
+    '.ijv-head button:hover{background:rgba(255,255,255,.28)}',
+    '.ijv-msgs{flex:1;overflow-y:auto;padding:16px;background:#FAFAFA;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}',
+    '.ijv-msg{max-width:84%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.45;word-wrap:break-word}',
+    '.ijv-msg p{margin:0 0 6px}.ijv-msg p:last-child{margin:0}',
+    '.ijv-msg ul{margin:4px 0 4px 18px;padding:0}.ijv-msg li{margin:2px 0}',
+    '.ijv-msg a{color:var(--ijv-primary);text-decoration:underline}',
+    '.ijv-msg code{background:rgba(0,0,0,.08);padding:1px 5px;border-radius:4px;font-size:13px}',
+    '.ijv-msg img{max-width:1.2em!important;max-height:1.2em!important;display:inline-block!important;vertical-align:text-bottom!important}',
+    /* Fotos que manda el agente. La regla de arriba aplasta CUALQUIER <img> a
+     * 1.2em para defenderse de las librerías de emoji del sitio (regla #15);
+     * esta gana por especificidad y solo alcanza a las fotos que pinta el
+     * widget. Los !important son contra un `img{width:100%!important}` global
+     * del sitio del cliente, que si no deforma la foto. */
+    /* `aspect-ratio:auto 4/3` reserva el hueco con el alto FINAL desde el primer
+     * frame: mientras la imagen no tiene proporción natural (o sea, mientras
+     * carga) vale el 4/3; apenas llega manda la proporción real de la imagen, así
+     * que una foto vertical o panorámica se ve bien igual. Sin esto la burbuja
+     * crecía de golpe al cargar y empujaba el texto. */
+    '.ijv-msg img.ijv-foto{display:block!important;width:100%!important;max-width:100%!important;max-height:none!important;height:auto!important;aspect-ratio:auto 4 / 3;vertical-align:baseline!important;border-radius:10px;margin:6px 0;background:rgba(0,0,0,.05)}',
+    '.ijv-msg img.ijv-foto:first-child{margin-top:0}',
+    '.ijv-msg img.ijv-foto:last-child{margin-bottom:0}',
+    '.ijv-msg.ijv-con-foto{max-width:92%}',
+    '.ijv-bot{align-self:flex-start;background:#fff;border:1px solid #E8E8E8;border-top-left-radius:4px;color:var(--ijv-text)}',
+    '.ijv-user{align-self:flex-end;background:var(--ijv-primary);color:#fff;border-top-right-radius:4px}',
+    '.ijv-user a{color:#fff}',
+    '.ijv-typing{align-self:flex-start;display:flex;gap:4px;padding:10px 14px;background:#fff;border:1px solid #E8E8E8;border-radius:14px;border-top-left-radius:4px}',
+    '.ijv-typing span{width:7px;height:7px;background:var(--ijv-primary);border-radius:50%;opacity:.4;animation:ijvBlink 1.2s infinite}',
+    '.ijv-typing span:nth-child(2){animation-delay:.2s}.ijv-typing span:nth-child(3){animation-delay:.4s}',
+    '@keyframes ijvBlink{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}',
+    '.ijv-cta{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 6px}',
+    '.ijv-pill{background:var(--ijv-accent);color:var(--ijv-primary);border:1px solid rgba(0,0,0,.08);padding:6px 12px;border-radius:999px;font-size:12.5px;cursor:pointer;font-weight:600;transition:all .15s;font-family:inherit}',
+    '.ijv-pill:hover{background:var(--ijv-primary);color:#fff;border-color:var(--ijv-primary)}',
+    '.ijv-form{background:#fff;border:1px solid #E8E8E8;border-radius:12px;padding:14px;margin:8px 0;display:flex;flex-direction:column;gap:8px;align-self:stretch}',
+    '.ijv-form h4{margin:0 0 4px;font-size:14px;color:var(--ijv-text)}',
+    '.ijv-form input,.ijv-form textarea{width:100%;padding:9px 11px;border:1px solid #D8D8D8;border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--ijv-text);background:#fff}',
+    '.ijv-form input:focus,.ijv-form textarea:focus{outline:none;border-color:var(--ijv-primary)}',
+    '.ijv-form button{background:var(--ijv-primary);color:#fff;border:0;padding:10px;border-radius:8px;font-weight:600;cursor:pointer;font-size:13.5px;font-family:inherit}',
+    '.ijv-form button:disabled{opacity:.6;cursor:wait}',
+    '.ijv-form .ijv-hp{display:none!important}',
+    '.ijv-form .ijv-legal{margin:0;font-size:10.5px;line-height:1.45;color:#8a8a8a}',
+    '.ijv-form .ijv-legal a{color:var(--ijv-primary);text-decoration:underline}',
+    '.ijv-cal{background:linear-gradient(135deg,var(--ijv-primary),var(--ijv-secondary));border-radius:12px;padding:16px;margin:8px 0;align-self:stretch;color:#fff}',
+    '.ijv-cal p{margin:0 0 10px;font-size:13.5px;line-height:1.45}',
+    '.ijv-cal a{display:inline-block;background:#fff;color:var(--ijv-primary);font-weight:700;padding:9px 16px;border-radius:8px;text-decoration:none;font-size:13.5px}',
+    '.ijv-input{display:flex;gap:8px;padding:12px;border-top:1px solid #E8E8E8;background:#fff;align-items:flex-end}',
+    '.ijv-input textarea{flex:1;border:1px solid #D8D8D8;border-radius:12px;padding:10px 12px;font-family:inherit;font-size:14px;resize:none;max-height:100px;min-height:40px;color:var(--ijv-text)}',
+    '.ijv-input textarea:focus{outline:none;border-color:var(--ijv-primary)}',
+    '.ijv-input button{background:var(--ijv-primary);color:#fff;border:0;width:40px;height:40px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}',
+    '.ijv-input button:disabled{opacity:.5;cursor:not-allowed}',
+    '.ijv-input button svg{width:18px;height:18px;fill:#fff}',
+    '.ijv-foot{padding:8px 12px 10px;background:#fff;border-top:1px solid #E8E8E8;text-align:center;font-size:10.5px;color:#8a8a8a;line-height:1.5}',
+    '.ijv-foot a{color:var(--ijv-primary);text-decoration:none;font-weight:600}',
+    '.ijv-foot a:hover{text-decoration:underline}',
+    '.ijv-foot .ijv-foot-powered{display:block;margin-top:3px;font-size:10px;color:#9a9a9a}',
+    '.ijv-foot .ijv-foot-powered a{color:#9a9a9a;font-weight:500}',
+    '.ijv-toast{position:absolute;top:70px;left:50%;transform:translateX(-50%);background:var(--ijv-secondary);color:#fff;padding:8px 14px;border-radius:8px;font-size:12.5px;opacity:0;transition:opacity .2s;pointer-events:none}',
+    '.ijv-toast.ijv-show{opacity:.95}',
+    /* Móvil (regla #133): `100dvh`, no `100vh`. En Safari iOS `100vh` es el
+     * viewport GRANDE (con la barra del navegador retraída), así que con la barra
+     * visible —o con el teclado— el input y el footer quedaban tapados. Cada
+     * propiedad va dos veces: primero el fallback (`100vh`, `16px`) para
+     * navegadores sin dvh/max()/env(), y después la buena, que la pisa donde
+     * existe. Como el launcher se oculta al abrir, el panel baja hasta 16px del
+     * borde (o el safe-area del iPhone) en vez de reservarle los 80px. */
+    '@media (max-width:480px){'
+      + '.ijv-root{width:calc(100vw - 16px);right:8px;'
+      + 'bottom:16px;height:calc(100vh - 40px);max-height:calc(100vh - 40px);'
+      + 'bottom:max(16px,env(safe-area-inset-bottom));'
+      + 'height:calc(100dvh - 16px - max(16px,env(safe-area-inset-bottom)));'
+      + 'max-height:calc(100dvh - 16px - max(16px,env(safe-area-inset-bottom)))}'
+      + '.ijv-launcher{bottom:16px;bottom:max(16px,env(safe-area-inset-bottom));right:16px;height:54px;padding:0 18px}'
+      + '.ijv-launcher img{height:32px!important}'
+      + '}'
+  ].join('');
+
+  /* ---------------- Render de la UI ---------------- */
+  var styleEl = document.createElement('style');
+  styleEl.textContent = CSS;
+  document.head.appendChild(styleEl);
+
+  var launcher = document.createElement('button');
+  launcher.className = 'ijv-launcher';
+  launcher.setAttribute('aria-label', 'Abrir chat ' + CFG.clientName);
+  launcher.innerHTML = '<img src="' + escapeHtml(CFG.logoUrl) + '" alt="' + escapeHtml(CFG.clientName) + '" />';
+  document.body.appendChild(launcher);
+
+  var root = document.createElement('div');
+  root.className = 'ijv-root';
+  root.setAttribute('role', 'dialog');
+  root.setAttribute('aria-label', 'Chat de ' + CFG.clientName);
+  root.innerHTML =
+    '<div class="ijv-head">' +
+      '<img src="' + escapeHtml(CFG.logoUrl) + '" alt="' + escapeHtml(CFG.clientName) + '" />' +
+      '<div>' +
+        '<div class="ijv-title">' + escapeHtml(CFG.clientName) + '</div>' +
+        '<div class="ijv-sub">' + escapeHtml(CFG.headerSubtitle) + '</div>' +
+      '</div>' +
+      '<div class="ijv-actions">' +
+        '<button type="button" class="ijv-reset" aria-label="Reiniciar conversación" title="Nueva conversación">⟳</button>' +
+        '<button type="button" class="ijv-close" aria-label="Cerrar chat" title="Cerrar">✕</button>' +
+      '</div>' +
+      '<div class="ijv-toast">Conversación reiniciada</div>' +
+    '</div>' +
+    '<div class="ijv-msgs" aria-live="polite" aria-atomic="false"></div>' +
+    '<div class="ijv-input">' +
+      '<textarea rows="1" maxlength="2000" placeholder="Escribe tu mensaje…" aria-label="Escribe tu mensaje"></textarea>' +
+      '<button type="button" class="ijv-send" aria-label="Enviar">' +
+        '<svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>' +
+      '</button>' +
+    '</div>' +
+    '<div class="ijv-foot">' +
+      'Al usar este chat aceptas la <a href="' + escapeHtml(CFG.privacyUrl) + '" target="_blank" rel="noopener">política de privacidad</a> de ' + escapeHtml(CFG.clientName) + '.' +
+      '<span class="ijv-foot-powered"><a href="https://ijvagency.com/" target="_blank" rel="noopener">Powered by IJV</a></span>' +
+    '</div>';
+  document.body.appendChild(root);
+
+  /* Logo con fallback: si la URL del logo falla (típico en demos con dominio
+   * ficticio, o si el sitio del cliente mueve el archivo), el launcher cae a un
+   * ícono de chat y el header oculta la imagen rota — nunca se ve un img roto. */
+  var CHAT_ICON = '<svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true"><path d="M12 3C6.48 3 2 6.94 2 11.5c0 2.3 1.13 4.38 2.97 5.88L4 21l4.02-1.6c1.2.38 2.5.6 3.98.6 5.52 0 10-3.94 10-8.5S17.52 3 12 3z"/></svg>';
+  var lImg = launcher.querySelector('img');
+  if (lImg) {
+    var lFallback = function () { launcher.innerHTML = CHAT_ICON; };
+    lImg.onerror = lFallback;
+    if (lImg.complete && lImg.naturalWidth === 0) lFallback();
+  }
+  var hImg = root.querySelector('.ijv-head img');
+  if (hImg) {
+    /* setProperty con `important`, no `style.display = 'none'` a secas: la regla
+     * `.ijv-head img{display:block!important}` (blindaje contra el CSS global del
+     * sitio) le ganaba al inline sin prioridad y el chip quedaba visible con el
+     * ícono de imagen rota adentro — justo lo que la regla #95 existe para evitar.
+     * Misma lección que prepFoto(). Visto en el QA del 2026-09-17. */
+    var hFallback = function () {
+      if (hImg.style.setProperty) hImg.style.setProperty('display', 'none', 'important');
+      else hImg.style.display = 'none';
+    };
+    hImg.onerror = hFallback;
+    if (hImg.complete && hImg.naturalWidth === 0) hFallback();
+  }
+
+  var $msgs  = root.querySelector('.ijv-msgs');
+  var $input = root.querySelector('textarea');
+  var $send  = root.querySelector('.ijv-send');
+  var $close = root.querySelector('.ijv-close');
+  var $reset = root.querySelector('.ijv-reset');
+  var $toast = root.querySelector('.ijv-toast');
+
+  var isOpen = false;
+  var isBusy = false;
+  var welcomed = false;
+
+  /* Regla #19: rAF obligatorio — sin él Safari/iOS deja el scroll anclado
+   * arriba mientras el bot escribe. */
+  function scrollToBottom() {
+    $msgs.scrollTop = $msgs.scrollHeight;
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(function () { $msgs.scrollTop = $msgs.scrollHeight; });
+    }
+  }
+  /* Regla #133: el hilo con SOLO el welcome se lee desde la primera línea. Si
+   * welcome + botones superan el alto de .ijv-msgs, scrollToBottom() abre el
+   * chat con la primera línea y media del saludo comida. Se ancla arriba SOLO
+   * en ese estado — con historial restaurado o con respuestas nuevas se sigue
+   * bajando al fondo. El rAF se registra DESPUÉS de los de scrollToBottom
+   * (mismo frame, orden de registro), así el último en correr es este y
+   * Safari/iOS no lo pisa (regla #19). */
+  function scrollToTop() {
+    $msgs.scrollTop = 0;
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(function () { $msgs.scrollTop = 0; });
+    }
+  }
+  function showToast(t) {
+    $toast.textContent = t;
+    $toast.classList.add('ijv-show');
+    setTimeout(function () { $toast.classList.remove('ijv-show'); }, 1800);
+  }
+  function pushUser(text, opts) {
+    var div = document.createElement('div');
+    div.className = 'ijv-msg ijv-user';
+    div.textContent = text;
+    $msgs.appendChild(div);
+    scrollToBottom();
+    if (!opts || !opts.skipSave) saveMessage('user', text);
+  }
+  function pushBot(text, opts) {
+    opts = opts || {};
+    var div = document.createElement('div');
+    div.className = 'ijv-msg ijv-bot';
+    $msgs.appendChild(div);
+    if (!opts.skipSave) saveMessage('bot', text);
+    if (CFG.typewriter && !opts.instant) {
+      typewrite(div, text);
+    } else {
+      renderBot(div, text);
+      scrollToBottom();
+    }
+    return div;
+  }
+  /* Typewriter: re-parsea markdown en cada step y scrollea con rAF (regla #19).
+   * Las líneas de foto NO se tipean: se tipea solo la prosa (sinFotos) y las
+   * imágenes aparecen enteras al cerrar el mensaje. Si se tipearan, cada step
+   * recrearía el <img> (innerHTML se reemplaza completo 30 veces por segundo)
+   * y eso son decenas de descargas y parpadeo; además el usuario vería la URL
+   * cruda letra por letra. Sin fotos, sinFotos() devuelve el texto intacto y
+   * esto se comporta exactamente como siempre. */
+  function typewrite(div, fullText) {
+    var typed = sinFotos(fullText);
+    var i = 0;
+    var step = Math.max(1, Math.round(CFG.typewriterCps / 30));
+    var timer = setInterval(function () {
+      i += step;
+      if (i >= typed.length) {
+        clearInterval(timer);
+        renderBot(div, fullText);
+        scrollToBottom();
+        return;
+      }
+      div.innerHTML = parseMd(typed.slice(0, i));
+      scrollToBottom();
+    }, 33);
+  }
+  function pushCTA(buttons) {
+    var row = document.createElement('div');
+    row.className = 'ijv-cta';
+    buttons.forEach(function (b) {
+      var p = document.createElement('button');
+      p.type = 'button';
+      p.className = 'ijv-pill';
+      p.textContent = b.label;
+      p.addEventListener('click', b.onClick);
+      row.appendChild(p);
+    });
+    $msgs.appendChild(row);
+    scrollToBottom();
+    return row;
+  }
+  function showTyping() {
+    var t = document.createElement('div');
+    t.className = 'ijv-typing';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    $msgs.appendChild(t);
+    scrollToBottom();
+    return t;
+  }
+  function removeEl(el) { if (el && el.parentNode) el.parentNode.removeChild(el); }
+
+  /* ---------------- Call al webhook del agente ---------------- */
+  function callAgent(message, attempt) {
+    attempt = attempt || 0;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, CFG.timeoutMs);
+    return fetch(CFG.webhook, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: message,
+        sessionId: getSessionId(),
+        origin: window.location.origin,
+        channel: 'web'
+      }),
+      signal: ctrl.signal
+    })
+    .then(function (r) {
+      clearTimeout(timer);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .catch(function (err) {
+      clearTimeout(timer);
+      if (attempt < CFG.maxRetries) return callAgent(message, attempt + 1);
+      throw err;
+    });
+  }
+
+  /* ---------------- Lead form (honeypot anti-bot) ---------------- */
+  function showLeadForm(prefill) {
+    if ($msgs.querySelector('.ijv-form')) { scrollToBottom(); return; }
+    prefill = prefill || {};
+    var form = document.createElement('form');
+    form.className = 'ijv-form';
+    form.innerHTML =
+      '<h4>Déjanos tus datos y te contactamos</h4>' +
+      '<input type="text" name="nombre" placeholder="Nombre completo *" required value="' + escapeHtml(prefill.nombre || '') + '">' +
+      '<input type="email" name="email" placeholder="Correo electrónico *" required value="' + escapeHtml(prefill.email || '') + '">' +
+      '<input type="tel" name="telefono" placeholder="Teléfono / WhatsApp (opcional)" value="' + escapeHtml(prefill.telefono || '') + '">' +
+      '<textarea name="consulta" rows="2" placeholder="Cuéntanos brevemente (opcional)"></textarea>' +
+      '<input type="text" name="hp" class="ijv-hp" tabindex="-1" autocomplete="off">' +
+      /* Línea legal del formulario: el footer del chat enlaza la política, pero el
+       * formulario es donde el usuario ENTREGA sus datos — ahí tiene que estar el
+       * enlace (regla #14, misma lógica) y el recordatorio de qué NO mandar por
+       * este medio. La segunda frase se ajusta al vertical: un prestador de salud
+       * (legal.datos_salud) pide explícitamente no enviar estudios clínicos. */
+      '<p class="ijv-legal">Al enviar aceptas el tratamiento de tus datos conforme al ' +
+        '<a href="' + escapeHtml(CFG.privacyUrl) + '" target="_blank" rel="noopener">aviso de privacidad</a>. ' +
+        'No compartas por este medio información sensible ni documentos personales.</p>' +
+      '<button type="submit">Enviar</button>';
+    $msgs.appendChild(form);
+    scrollToBottom();
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Enviando…';
+      var fd = new FormData(form);
+      fetch(CFG.leadsWebhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: fd.get('nombre'),
+          email: fd.get('email'),
+          telefono: fd.get('telefono'),
+          consulta: fd.get('consulta'),
+          hp: fd.get('hp'),
+          session_id: getSessionId(),
+          origin: window.location.origin
+        })
+      })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; })
+      .then(function () {
+        removeEl(form);
+        pushBot('¡Listo! Recibimos tus datos. El equipo de ' + CFG.clientName + ' te contacta muy pronto.', { instant: true });
+        afterLeadCTA();
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Reintentar';
+        pushBot('Hubo un problema al enviar. Por favor intenta de nuevo.', { instant: true });
+      });
+    });
+  }
+
+  /* Regla #20: el usuario que dejó datos está CALIENTE — no cerrar con
+   * "te escribimos pronto" seco: CTA inmediato a Calendly / WhatsApp. */
+  function afterLeadCTA() {
+
+
+  }
+
+  /* ---------------- Intent helpers ---------------- */
+
+  function wantsContactForm(text) {
+    return /\b(lead|llama(me|r)|mis datos|dejo mis datos|d[ée]jame datos|quiero que me contacten)\b/i.test(text || '');
+  }
+
+  /* ---------------- Envío de mensajes ---------------- */
+  function send(text) {
+    text = (text || '').trim();
+    if (!text || isBusy) return;
+    pushUser(text);
+    $input.value = '';
+    autoSize();
+    isBusy = true;
+    $send.disabled = true;
+
+    var typing = showTyping();
+
+    callAgent(text)
+      .then(function (data) {
+        removeEl(typing);
+        var reply = (data && (data.output || data.response || data.text)) || 'Disculpa, no pude procesar tu mensaje. ¿Puedes reformularlo?';
+        pushBot(reply);
+
+        var showsForm = (data && (data.lead_intent || data.showForm)) || wantsContactForm(text);
+        var wantsContactBtn = false; /* derivar_tras_calificar: el botón no sale por palabras sueltas de la respuesta. El agente pasa el caso con lo que ya sabe de la persona; un «Contactar al equipo» al primer «equipo» o «asesor» le llega al equipo sin contexto (Lumicam, 29-set-2026). */
+        var ctas = [];
+
+        /* Regla #18: botón persistente, NUNCA auto-open que tape la respuesta */
+        if (wantsContactBtn && !showsForm) {
+          ctas.push({ label: 'Contactar al equipo', onClick: function () { showLeadForm({ nombre: data && data.nombre, email: data && data.email, telefono: data && data.telefono }); } });
+        }
+        if (ctas.length) pushCTA(ctas);
+        if (showsForm) showLeadForm({ nombre: data && data.nombre, email: data && data.email, telefono: data && data.telefono });
+      })
+      .catch(function () {
+        removeEl(typing);
+        pushBot('Ups, tuve un problema de conexión. ¿Puedes intentarlo de nuevo?', { instant: true });
+
+      })
+      .then(function () {
+        isBusy = false;
+        $send.disabled = false;
+        $input.focus();
+      });
+  }
+
+  /* ---------------- Auto-resize textarea ---------------- */
+  function autoSize() {
+    $input.style.height = 'auto';
+    $input.style.height = Math.min($input.scrollHeight, 100) + 'px';
+  }
+  $input.addEventListener('input', autoSize);
+  $input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send($input.value);
+    }
+  });
+  $send.addEventListener('click', function () { send($input.value); });
+
+  /* ---------------- Welcome + quick buttons ---------------- */
+  function showWelcome() {
+    /* El welcome NO pasa por send(): jamás dispara detección de lead (regla #18) */
+    pushBot(CFG.welcomeMessage, { instant: true, skipSave: true });
+    if (QUICK_BUTTONS.length) {
+      pushCTA(QUICK_BUTTONS.map(function (b) {
+        return { label: b.label, onClick: function () { send(b.mensaje); } };
+      }));
+    }
+    /* Hilo con solo el welcome: desde la primera línea, no desde el final (regla #133). */
+    scrollToTop();
+  }
+  function restoreHistory() {
+    var hist = loadMessages();
+    if (!hist.length) return false;
+    hist.forEach(function (m) {
+      if (m.role === 'user') pushUser(m.text, { skipSave: true });
+      else pushBot(m.text, { instant: true, skipSave: true });
+    });
+    return true;
+  }
+
+  /* ---------------- Open / close / reset ---------------- */
+  function openChat() {
+    isOpen = true;
+    root.classList.add('ijv-open');
+    launcher.style.display = 'none';
+    if (!welcomed) {
+      welcomed = true;
+      getSessionId(); /* aplica TTL antes de restaurar */
+      if (!restoreHistory()) showWelcome();
+    }
+    setTimeout(function () { $input.focus(); }, 200);
+  }
+  function closeChat() {
+    isOpen = false;
+    root.classList.remove('ijv-open');
+    launcher.style.display = 'flex';
+  }
+  launcher.addEventListener('click', openChat);
+  $close.addEventListener('click', closeChat);
+  $reset.addEventListener('click', function () {
+    resetSession();
+    $msgs.innerHTML = '';
+    showToast('Conversación reiniciada');
+    setTimeout(showWelcome, 250);
+  });
+
+  /* ---------------- API pública opcional ---------------- */
+  window.movetAgent = {
+    open:  openChat,
+    close: closeChat,
+    reset: function () { $reset.click(); },
+    send:  send
+  };
+})();
+
+  </script>
+</body>
+</html>

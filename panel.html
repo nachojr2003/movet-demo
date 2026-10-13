@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#21187c">
+<title>Panel de la sede | Movet, demo de agendamiento</title>
+<link rel="icon" type="image/png" href="assets/icon.png">
+<style>
+/* ==========================================================================
+   Panel de la sede: demo Movet (cadena de clínicas veterinarias 24 h).
+
+   Es lo que vería recepción o el director: las citas que agendó el asistente
+   por WhatsApp y, por cada una, el PLAN DE RECORDATORIOS PROGRAMADOS.
+
+   Lee   GET {webhook}/movet-demo-panel
+         -> { ok:true, citas:[{ id, creado, estado:'pending|verified|rejected',
+              tutor, mascota, motivo, sede, fecha, hora, telefono, notas }] }
+   Más reciente primero. Todos los campos son opcionales: se tolera lo que falte.
+
+   El plan se CALCULA AQUÍ, en el navegador, desde fecha + hora de la cita.
+   No se envía ningún mensaje ni se marca nada como "enviado": cada ítem
+   dice "Programado (demo)".
+
+   ?mock=1 -> citas de ejemplo (rotuladas), sin red.
+   Candados de red (incidente del 29-sep: una pestaña sondeando un webhook
+   inexistente disparó la alarma de 5xx de la instancia compartida):
+     file://        -> siempre ejemplos, nunca consulta
+     pestaña oculta -> no consulta
+     fallos         -> backoff y corte tras 6 seguidos (botón Actualizar)
+   ========================================================================== */
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;
+  src:url("./assets/0c89a48fa5027cee-s.p.0rd3rjvnnhw7n.woff2") format("woff2")}
+:root{
+  --navy:#21187c; --navy-deep:#17105a;
+  --magenta:#990099; --pink:#c52a89; --pink-tint:#fbeaf3;
+  --red:#c4291e; --red-tint:#fdeceb; --red-ink:#8f1d14;
+  --green:#0f7a43; --green-tint:#e3f5ea; --green-ink:#0b5a32;
+  --amber:#b97800; --amber-tint:#fdf1d3; --amber-ink:#7a4f00;
+  --gray:#f3f4f6; --rose:#fae7e8;
+  --ink:#1f1d3d; --muted:#5d5b7a; --line:#e2e1ec;
+  --brand:"Space Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--gray);color:var(--ink);font-family:var(--brand);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column}
+img{max-width:100%;height:auto;display:block}
+p{margin:0}
+h1,h2,h3{margin:0}
+button,input,select{font-family:inherit;font-size:inherit;color:inherit}
+[hidden]{display:none !important}
+a{color:var(--navy)}
+:focus-visible{outline:3px solid var(--pink);outline-offset:2px;border-radius:6px}
+
+/* ---------- franja honesta ---------- */
+.aviso{background:var(--navy-deep);color:rgba(255,255,255,.88);padding:9px 16px;font-size:13px;font-weight:500;line-height:1.4;text-align:center}
+.aviso b{color:#ff9bd6;font-weight:700;letter-spacing:.03em}
+
+/* ---------- barra superior ---------- */
+.top{background:#fff;border-bottom:1px solid var(--line);flex:none}
+.top-in{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.marca{display:inline-flex;flex:none;border-radius:8px}
+.marca svg{height:38px;width:auto;display:block}
+.top-in .sep{width:1px;height:32px;background:var(--line);flex:none}
+.top-in .quien{min-width:0}
+.top-in .quien h1{font-weight:700;font-size:1.25rem;letter-spacing:-.01em;line-height:1.15;color:var(--navy)}
+.top-in .quien small{display:block;font-size:13px;font-weight:500;color:var(--muted)}
+.top-sp{flex:1}
+.est{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 14px;border-radius:999px;background:var(--gray);color:var(--ink);font-weight:600;font-size:13px;white-space:nowrap}
+.est::before{content:"";width:9px;height:9px;border-radius:50%;background:#25d366}
+.est.mock::before{background:#f5b041}
+.est.off::before{background:var(--red)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:600;font-size:14.5px;text-decoration:none;white-space:nowrap;cursor:pointer;line-height:1}
+.btn:hover{background:var(--gray)}
+.btn.solid{background:var(--navy);color:#fff}
+.btn.solid:hover{background:var(--navy-deep)}
+.btn:disabled{opacity:.6;cursor:progress}
+.btn svg{flex:none}
+
+.wrap{flex:1;width:100%;max-width:1180px;margin:0 auto;padding:20px 16px 30px}
+
+/* ---------- avisos ---------- */
+.avisos{display:grid;gap:10px;margin-bottom:14px}
+.nota{border-radius:12px;padding:11px 14px;font-size:14.5px;line-height:1.45;border:1px solid transparent}
+.nota b{font-weight:700}
+.nota.amb{background:var(--amber-tint);color:var(--amber-ink);border-color:#f0d89a}
+.nota.info{background:#fff;color:var(--muted);border-color:var(--line)}
+.btn-mini{margin-left:8px;min-height:40px;padding:0 14px;border-radius:999px;border:2px solid currentColor;background:#fff;color:inherit;font-weight:700;font-size:14px;cursor:pointer}
+
+/* ---------- sede ---------- */
+.sede-bar{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap}
+.sede-bar .l{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.sede-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;border:2px solid var(--line);background:#fff;font-weight:600;font-size:15px;color:var(--navy)}
+.sede-chip::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--pink)}
+.sede-sel{min-height:44px;padding:0 38px 0 16px;border-radius:999px;border:2px solid var(--navy);background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2321187c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  font-weight:600;font-size:15px;color:var(--navy);-webkit-appearance:none;appearance:none;cursor:pointer;max-width:100%}
+
+/* ---------- contadores ---------- */
+.resumen{margin-top:16px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.kpi .n{font-size:2.1rem;font-weight:700;line-height:1.05;color:var(--navy);letter-spacing:-.025em}
+.kpi .l{margin-top:6px;font-size:14px;font-weight:600;color:var(--ink);line-height:1.25}
+.kpi .l2{display:block;margin-top:2px;font-size:12.5px;font-weight:500;color:var(--muted)}
+.kpi.hoy .n{color:var(--magenta)}
+.kpi.ok .n{color:var(--green)}
+.kpi.pen .n{color:var(--amber)}
+@media (max-width:820px){ .resumen{grid-template-columns:repeat(2,minmax(0,1fr))} .kpi .n{font-size:1.8rem} }
+
+/* ---------- filtros ---------- */
+.tools{margin-top:18px;display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tools h2{font-size:1.15rem;font-weight:700;color:var(--navy);letter-spacing:-.01em}
+.seg{display:inline-flex;border:2px solid var(--navy);border-radius:999px;overflow:hidden;background:#fff;max-width:100%;flex-wrap:wrap}
+.seg button{border:0;background:transparent;cursor:pointer;min-height:44px;padding:0 16px;font-weight:600;font-size:14.5px;line-height:1;color:var(--navy);white-space:nowrap}
+.seg button+button{border-left:2px solid var(--navy)}
+.seg button[aria-pressed="true"]{background:var(--navy);color:#fff}
+.seg button:not([aria-pressed="true"]):hover{background:var(--gray)}
+.seg .c{display:inline-block;min-width:22px;margin-left:6px;padding:2px 7px;border-radius:999px;background:rgba(33,24,124,.12);font-size:12.5px}
+.seg button[aria-pressed="true"] .c{background:rgba(255,255,255,.22)}
+@media (max-width:640px){
+  .seg{display:grid;grid-template-columns:1fr 1fr;border-radius:18px;width:100%}
+  .seg button{padding:0 8px}
+  .seg button:nth-child(3){border-left:0;border-top:2px solid var(--navy)}
+  .seg button:nth-child(4){border-top:2px solid var(--navy)}
+  .seg button:nth-child(2){border-left:2px solid var(--navy)}
+}
+
+/* ---------- lista de citas ---------- */
+.tabla{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.cols,.fila{display:grid;grid-template-columns:128px minmax(130px,1.1fr) minmax(150px,1.5fr) minmax(140px,1.1fr) 150px 150px 44px;gap:0 14px;align-items:center}
+.cols{padding:10px 16px;background:var(--gray);border-bottom:1px solid var(--line);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cita{border-bottom:1px solid var(--line)}
+.cita:last-child{border-bottom:0}
+.cita.nuevo{animation:resalta 1.8s ease-out}
+@keyframes resalta{from{background:var(--pink-tint)}to{background:transparent}}
+.cita.ej{background:repeating-linear-gradient(135deg,#fff,#fff 10px,#fafafc 10px,#fafafc 20px)}
+.fila{padding:14px 16px;cursor:pointer;min-height:68px}
+.fila:hover{background:#fafafd}
+.fila > div{min-width:0}
+.fila b{font-weight:700;color:var(--navy)}
+.fila .sub{display:block;font-size:13.5px;color:var(--muted);line-height:1.35}
+.fila .txt{font-size:15px;line-height:1.35;overflow-wrap:anywhere}
+.fila .vac{color:#9a98b2}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:30px;padding:0 12px;border-radius:999px;font-weight:700;font-size:13px;white-space:nowrap}
+.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.chip.pend{background:var(--amber-tint);color:var(--amber-ink)}
+.chip.ok{background:var(--green-tint);color:var(--green-ink)}
+.chip.rech{background:var(--red-tint);color:var(--red-ink)}
+.etq{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#eceff1;color:#455a64;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;vertical-align:middle}
+.c-tel a{font-weight:600;text-decoration:none;white-space:nowrap}
+.c-tel a:hover{text-decoration:underline}
+.c-mas{width:44px;height:44px;border-radius:50%;border:0;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--navy)}
+.c-mas:hover{background:var(--gray)}
+.c-mas svg{transition:transform .18s}
+.cita.abierta .c-mas svg{transform:rotate(180deg)}
+.cita.abierta .fila{background:#fafafd}
+.hoy-tag{display:inline-block;margin-left:6px;padding:1px 8px;border-radius:999px;background:var(--pink-tint);color:var(--magenta);font-size:11.5px;font-weight:700}
+
+.vacio{padding:34px 20px;text-align:center;color:var(--muted);font-size:15px}
+.vacio strong{display:block;font-size:1.1rem;color:var(--navy);margin-bottom:6px}
+.vacio.err{background:var(--amber-tint);color:var(--amber-ink)}
+.vacio.err strong{color:var(--amber-ink)}
+.vacio .btn{margin-top:14px}
+
+/* ---------- detalle: recordatorios ---------- */
+.detalle{border-top:1px dashed var(--line);background:#fafafd;padding:16px 18px 18px}
+.det-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);gap:20px}
+@media (max-width:860px){ .det-grid{grid-template-columns:minmax(0,1fr)} }
+.det h3,.plan h3{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.ficha{margin:10px 0 0;display:grid;gap:9px}
+.ficha div{font-size:14.5px;line-height:1.4}
+.ficha dt{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.ficha dd{margin:0;overflow-wrap:anywhere}
+.ficha dl,.ficha{margin-bottom:0}
+.plan .sub{margin-top:3px;font-size:13.5px;color:var(--muted);line-height:1.4}
+.pasos{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:9px}
+.paso{display:grid;grid-template-columns:150px minmax(0,1fr);gap:4px 14px;background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+.paso .fe{font-size:13px;font-weight:700;color:var(--navy);line-height:1.3}
+.paso .fe small{display:block;font-weight:600;color:var(--muted);font-size:12.5px;margin-top:2px}
+.paso .tx b{display:block;font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.paso .tx span.d{display:block;font-size:13.5px;color:var(--muted);line-height:1.4;margin-top:1px}
+.paso .tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;min-height:26px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap}
+.tag.wa{background:#e6f9ee;color:#0b6b36}
+.tag.prog{background:#eeedf9;color:var(--navy)}
+.tag.na{background:#eceff1;color:#546e7a}
+.paso.na{background:#fafafc;border-style:dashed}
+.paso.na .tx b{color:var(--muted)}
+@media (max-width:520px){ .paso{grid-template-columns:minmax(0,1fr)} .paso .fe small{display:inline;margin-left:6px} }
+.espera{margin-top:10px;font-size:14px;color:var(--amber-ink);background:var(--amber-tint);border-radius:10px;padding:9px 12px;line-height:1.45}
+.espera.neutro{color:var(--red-ink);background:var(--red-tint)}
+
+/* ---------- próximas fases ---------- */
+.fases{margin-top:28px;padding:18px 20px;border:1px dashed #c9c7dc;border-radius:16px;background:rgba(255,255,255,.55)}
+.fases h2{font-size:1rem;font-weight:700;color:var(--navy);letter-spacing:-.005em}
+.fases .sub{margin-top:2px;font-size:13.5px;color:var(--muted)}
+.fases ul{margin:12px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 26px}
+.fases li{position:relative;padding-left:18px;font-size:14.5px;line-height:1.45;color:var(--ink)}
+.fases li::before{content:"";position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:var(--pink)}
+@media (max-width:760px){ .fases ul{grid-template-columns:minmax(0,1fr)} }
+
+footer{border-top:1px solid var(--line);background:#fff;flex:none}
+.foot{max-width:1180px;margin:0 auto;padding:12px 16px;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+.foot a{color:var(--navy);text-decoration:none;font-weight:600}
+.foot a:hover{text-decoration:underline}
+.foot .sp{flex:1}
+
+/* ---------- responsive: la fila pasa a tarjeta ---------- */
+@media (max-width:960px){
+  .cols{display:none}
+  .fila{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"quien estado" "motivo motivo" "cuando sede" "tel mas";gap:10px 14px;align-items:start;padding:14px 14px 10px}
+  .c-estado{grid-area:estado;justify-self:end}
+  .c-quien{grid-area:quien}
+  .c-motivo{grid-area:motivo}
+  .c-sede{grid-area:sede}
+  .c-cuando{grid-area:cuando}
+  .c-tel{grid-area:tel;align-self:center}
+  .c-mas{grid-area:mas;justify-self:end}
+  .fila [data-l]::before{content:attr(data-l);display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:1px}
+  .fila .c-estado::before,.fila .c-quien::before{display:none}
+}
+@media (max-width:640px){
+  .aviso{font-size:12.5px;padding:8px 12px}
+  .top-in{gap:8px 10px;padding:10px 14px}
+  .top-in .sep,.top-in .quien small{display:none}
+  .marca svg{height:32px}
+  .marca{order:0}
+  .est{order:1;margin-left:auto}
+  .top-in .quien{order:2;flex-basis:100%}
+  .top-sp{display:none}
+  .top-in .btn{order:3;flex:1 1 auto}
+}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important;transition:none !important} }
+</style>
+</head>
+<body>
+
+<!-- símbolo de marca (tomado del propio sitio de Movet) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="mv-logo" viewBox="0.5 0.5 153.59 50.52"><path d="M37.2587 25.5055C37.2587 35.5798 29.0293 43.7459 18.8771 43.7459C8.72487 43.7459 0.5 35.5798 0.5 25.5055C0.5 15.4312 8.72935 7.26953 18.8816 7.26953C29.0338 7.26953 37.2631 15.4357 37.2631 25.51" fill="#FF001E"/><path d="M26.8066 44.3027C26.8066 45.9796 25.4351 47.3406 23.7453 47.3406C22.0555 47.3406 20.6839 45.9796 20.6839 44.3027H16.9727C16.9727 48.0078 20.0116 51.0234 23.7453 51.0234C27.2145 51.0234 30.0787 48.4258 30.4686 45.0855L26.8066 44.3027Z" fill="#0E2288"/><path d="M16.9722 44.2969C16.9722 45.9737 15.6006 47.3347 13.9108 47.3347C12.221 47.3347 10.8495 45.9737 10.8495 44.2969L7.1875 45.0797C7.57745 48.42 10.4461 51.0175 13.9108 51.0175C17.6445 51.0175 20.6835 48.0019 20.6835 44.2969H16.9722Z" fill="#0E2288"/><path d="M20.7367 39.8184H17.0254V46.7347H20.7367V39.8184Z" fill="#0E2288"/><path d="M21.7408 38.9471C21.7408 40.5127 20.4589 41.7848 18.8811 41.7848C17.3034 41.7848 16.0215 40.5127 16.0215 38.9471C16.0215 37.3814 17.3034 36.1094 18.8811 36.1094C20.4589 36.1094 21.7408 37.3814 21.7408 38.9471Z" fill="#0E2288"/><path d="M33.5781 27.2224H29.3962V10.1517L20.1539 27.2224H17.5004L8.25808 10.1517V27.2224H4.07617V0.5H7.85468L18.8271 20.7197L29.84 0.5H33.5781V27.2224Z" fill="#0E2288"/><path d="M75.4291 40.0193H71.2517V22.9486L62.0049 40.0193H59.3559L50.1091 22.9486V40.0193H45.9316V13.2969H49.7101L60.6781 33.5166L71.6909 13.2969H75.4291V40.0193Z" fill="#0E2288"/><path d="M95.4245 22.6899C97.4729 24.6158 98.4993 27.0977 98.4993 30.1266C98.4993 33.1556 97.4684 35.6419 95.4066 37.5856C93.3448 39.5248 90.8258 40.4989 87.8496 40.4989C84.8734 40.4989 82.3095 39.5293 80.2343 37.5856C78.159 35.6463 77.1191 33.16 77.1191 30.1266C77.1191 27.0932 78.159 24.6158 80.2343 22.6899C82.3095 20.764 84.851 19.7988 87.8496 19.7988C90.8482 19.7988 93.3761 20.764 95.4245 22.6899ZM92.4707 35.0148C93.784 33.7516 94.4384 32.1237 94.4384 30.1311C94.4384 28.1385 93.784 26.5106 92.4707 25.2474C91.1574 23.9842 89.6156 23.3526 87.8496 23.3526C86.0836 23.3526 84.4655 23.9842 83.1656 25.2474C81.8658 26.5106 81.2159 28.1385 81.2159 30.1311C81.2159 32.1237 81.8658 33.7516 83.1656 35.0148C84.4655 36.2779 86.0253 36.9095 87.8496 36.9095C89.6738 36.9095 91.1574 36.2779 92.4707 35.0148Z" fill="#0E2288"/><path d="M110.175 40.0192H105.715L97.1543 20.1953H101.699L107.965 35.0732L114.236 20.1953H118.777L110.175 40.0192Z" fill="#0E2288"/><path d="M137.695 31.1225H121.541C121.73 32.9016 122.397 34.3249 123.549 35.3879C124.701 36.4509 126.042 36.9847 127.57 36.9847C130.331 36.9847 132.285 35.8416 133.437 33.5554L137.175 34.3516C136.373 36.3976 135.131 37.9454 133.46 38.9995C131.783 40.0492 129.825 40.574 127.57 40.574C124.782 40.574 122.393 39.6044 120.398 37.6607C118.404 35.7215 117.404 33.2218 117.404 30.1617C117.404 27.1017 118.404 24.5575 120.398 22.6049C122.393 20.6523 124.84 19.6738 127.731 19.6738C130.439 19.6738 132.747 20.6123 134.665 22.4848C136.579 24.3574 137.592 26.7592 137.7 29.6814V31.118L137.695 31.1225ZM123.872 24.6242C122.693 25.4738 121.958 26.6569 121.662 28.1736H133.397C133.074 26.6035 132.406 25.407 131.389 24.5842C130.371 23.7614 129.152 23.3477 127.731 23.3477C126.31 23.3477 125.051 23.7747 123.872 24.6242Z" fill="#0E2288"/><path d="M145.853 33.2754C145.853 34.3384 146.122 35.1702 146.656 35.7662C147.194 36.3622 147.929 36.6646 148.865 36.6646C150.017 36.6646 151.142 36.3044 152.241 35.5883L153.487 39.0576C151.824 40.0672 150.192 40.5743 148.583 40.5743C146.387 40.5743 144.684 39.9649 143.478 38.7418C142.272 37.5186 141.671 35.8062 141.671 33.5957V23.6637H137.373V20.2345H141.671V12.5753L145.849 11.2988V20.23H154.087V23.6593H145.849V33.271L145.853 33.2754Z" fill="#0E2288"/></symbol>
+</svg>
+
+<div class="aviso"><b>Panel de demostraci&oacute;n</b> &middot; muestra solo las citas generadas en esta demo. En producci&oacute;n se conecta a la agenda y al software veterinario de cada sede.</div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="marca" href="./" aria-label="Movet, volver a la web"><svg viewBox="0.5 0.5 153.59 50.52" width="115" height="38" role="img" aria-label="Movet"><use href="#mv-logo"/></svg></a>
+    <span class="sep"></span>
+    <div class="quien"><h1>Panel de la sede</h1><small>Citas agendadas por el asistente y recordatorios programados</small></div>
+    <div class="top-sp"></div>
+    <span class="est" id="est" role="status"><span id="est-txt">Conectando&hellip;</span></span>
+    <button class="btn" id="btn-act" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 11-3-6.7"/><path d="M21 4v5h-5"/></svg><span id="btn-act-t">Actualizar</span></button>
+    <a class="btn solid" href="./whatsapp.html">Simulador de WhatsApp</a>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="avisos">
+    <div class="nota amb" id="aviso-red" hidden role="status"></div>
+    <div class="nota info">Cada cita que toma el asistente aparece aqu&iacute;. Despliega una fila para ver el <b>plan de recordatorios</b> que se calcula con la fecha y la hora de la cita.</div>
+  </div>
+
+  <div class="sede-bar">
+    <span class="l">Sede</span>
+    <span class="sede-chip" id="sede-chip">Todas las sedes</span>
+    <select class="sede-sel" id="sede-sel" aria-label="Filtrar por sede" hidden></select>
+  </div>
+
+  <section class="resumen" aria-label="Resumen">
+    <div class="kpi"><div class="n" id="k-tot">0</div><div class="l">Agendadas por el asistente<span class="l2" id="k-tot2">hoy: 0</span></div></div>
+    <div class="kpi hoy"><div class="n" id="k-hoy">0</div><div class="l">Citas para hoy<span class="l2">por fecha de la cita</span></div></div>
+    <div class="kpi ok"><div class="n" id="k-ok">0</div><div class="l">Confirmadas</div></div>
+    <div class="kpi pen"><div class="n" id="k-pen">0</div><div class="l">Pendientes de confirmaci&oacute;n</div></div>
+  </section>
+
+  <div class="tools">
+    <h2>Citas</h2>
+    <div class="seg" role="group" aria-label="Filtrar por estado" id="filtros">
+      <button type="button" data-f="todas" aria-pressed="true">Todas <span class="c" id="c-todas">0</span></button>
+      <button type="button" data-f="pend" aria-pressed="false">Pendientes <span class="c" id="c-pend">0</span></button>
+      <button type="button" data-f="ok" aria-pressed="false">Confirmadas <span class="c" id="c-ok">0</span></button>
+      <button type="button" data-f="rech" aria-pressed="false">Rechazadas <span class="c" id="c-rech">0</span></button>
+    </div>
+  </div>
+
+  <div class="tabla" id="tabla">
+    <div class="cols" aria-hidden="true"><span>Estado</span><span>Tutor y mascota</span><span>Motivo</span><span>Sede</span><span>Fecha y hora</span><span>Tel&eacute;fono</span><span></span></div>
+    <div id="lista" aria-live="polite"></div>
+  </div>
+
+  <section class="fases" aria-labelledby="fases-t">
+    <h2 id="fases-t">Pr&oacute;ximas fases</h2>
+    <p class="sub">Todav&iacute;a no existen en esta demo y no se simulan.</p>
+    <ul>
+      <li>Actualizaciones institucionales a la familia del paciente hospitalizado, desde un n&uacute;mero de la cl&iacute;nica y no del celular personal del m&eacute;dico.</li>
+      <li>Aviso de resultados listos, para que la familia no tenga que llamar a preguntar.</li>
+      <li>Agente de voz para la l&iacute;nea #909, bajo el protocolo cl&iacute;nico que definan los m&eacute;dicos de Movet.</li>
+      <li>M&eacute;tricas de campa&ntilde;as: qu&eacute; anuncios traen consultas y cu&aacute;ntas terminan en cita.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <span>Demostraci&oacute;n preparada por <b>IJV Agency</b> para Movet. Las citas llegan del simulador de WhatsApp.</span>
+    <span class="sp"></span>
+    <a href="./">Volver a la web</a>
+    <a href="https://ijvagency.com/" target="_blank" rel="noopener">Powered by IJV</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------------- configuración ---------------- */
+  var BASE_DEF = 'https://meta.ijvagency.com/webhook';
+  var qs = new URLSearchParams(location.search);
+  var esLocal = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var BASE = (esLocal && qs.get('api')) ? qs.get('api').replace(/\/$/,'') : BASE_DEF;
+  var ENDPOINT = BASE + '/movet-demo-panel';
+  /* Fuera de http(s) (file://, vista previa data:) la página NUNCA consulta el endpoint. */
+  var ORIGEN_WEB = /^https?:$/.test(location.protocol);
+  var MOCK = qs.get('mock') === '1' || !ORIGEN_WEB;
+  /* ?fast=1 solo en local: divide los tiempos para probar el corte por fallos sin esperar minutos */
+  var RAPIDO = esLocal && qs.get('fast') === '1';
+  var INTERVALO = RAPIDO ? 400 : 10000;
+  var TIMEOUT = RAPIDO ? 1500 : 8000;
+  var MAX_ESPERA = RAPIDO ? 2000 : 60000;
+  var MAX_FALLOS = 6;
+  var TZ = 'America/Bogota';
+  var BOG_MS = 5 * 3600 * 1000;      /* Colombia no tiene horario de verano: UTC-5 fijo */
+  var H = 3600000, DIA = 86400000;
+
+  /* ---------------- utilidades ---------------- */
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function texto(v){ return v == null ? '' : String(v).replace(/\s+/g,' ').trim(); }
+  function cap(s){ return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
+  function sinTildes(s){ return String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,''); }
+
+  function toDate(v){
+    if(v == null || v === '') return null;
+    if(v instanceof Date) return v;
+    if(typeof v === 'number') return new Date(v < 1e12 ? v*1000 : v);
+    var s = String(v).trim();
+    if(/^\d{10,13}$/.test(s)) return toDate(Number(s));
+    var d = new Date(s.replace(' ','T'));
+    return isNaN(d) ? null : d;
+  }
+  function limpiaHora(s){
+    return s.replace(/[  ]/g,' ').replace(/\s*\b([APap])\.?\s*[Mm]\.?/, function(_,l){ return ' ' + l.toLowerCase() + '. m.'; });
+  }
+  function horaCorta(d){
+    if(!d) return '';
+    var s;
+    try{ s = new Intl.DateTimeFormat('es-CO',{timeZone:TZ,hour:'numeric',minute:'2-digit',hour12:true}).format(d); }
+    catch(e){ var h=d.getHours(), m=('0'+d.getMinutes()).slice(-2); s = (h%12||12)+':'+m+' '+(h<12?'a':'p')+'. m.'; }
+    return limpiaHora(s);
+  }
+  function fechaCorta(d){
+    if(!d) return '';
+    try{ return cap(new Intl.DateTimeFormat('es-CO',{timeZone:TZ,weekday:'short',day:'numeric',month:'short'}).format(d).replace(/\./g,'').replace(/,/g,'').replace(/ de /g,' ')); }
+    catch(e){ return ''; }
+  }
+  function fechaLarga(d){
+    if(!d) return '';
+    try{ return new Intl.DateTimeFormat('es-CO',{timeZone:TZ,day:'numeric',month:'short',year:'numeric'}).format(d).replace(/\./g,'').replace(/ de /g,' ') + ', ' + horaCorta(d); }
+    catch(e){ return horaCorta(d); }
+  }
+  function haceCuanto(d, ahora){
+    if(!d) return '';
+    var min = Math.round((ahora - d.getTime()) / 60000);
+    if(min < 1) return 'ahora mismo';
+    if(min === 1) return 'hace 1 min';
+    if(min < 60) return 'hace ' + min + ' min';
+    var h = Math.floor(min/60);
+    if(h < 24) return 'hace ' + h + ' h';
+    var dd = Math.floor(h/24);
+    if(dd < 60) return 'hace ' + dd + (dd === 1 ? ' día' : ' días');
+    var mm = Math.floor(dd/30.4);
+    return 'hace ' + mm + (mm === 1 ? ' mes' : ' meses');
+  }
+  /* Índice de día en hora de Colombia: dos instantes del mismo día calendario comparten índice. */
+  function diaBog(t){ return Math.floor((t - BOG_MS) / DIA); }
+  function relativo(dif){
+    if(dif === 0) return 'hoy';
+    if(dif === 1) return 'mañana';
+    if(dif === -1) return 'ayer';
+    if(dif > 0) return 'en ' + dif + ' días';
+    return 'hace ' + (-dif) + ' días';
+  }
+  function numCita(id){
+    var s = String(id == null ? '' : id).trim();
+    if(!s) return '#-';
+    if(s.charAt(0) === '#') return s;
+    return '#' + (s.length > 10 ? s.slice(-6).toUpperCase() : s);
+  }
+
+  /* ---------------- fecha + hora de la cita ----------------
+     El contrato dice `fecha` y `hora` como texto. Se acepta ISO (2026-10-14),
+     día/mes/año (14/10/2026), español ("miércoles 14 de octubre") y relativos
+     ("mañana"); la hora en 24 h ("15:30") o 12 h ("3:30 p. m."). Todo se
+     interpreta en hora de Colombia. Si no se entiende, devuelve null y la
+     página muestra el texto tal cual, sin plan calculado. */
+  var MESES = { ene:1, feb:2, mar:3, abr:4, may:5, jun:6, jul:7, ago:8, sep:9, set:9, oct:10, nov:11, dic:12 };
+  function parseHora(h){
+    var s = sinTildes(h).replace(/\./g,'').replace(/([ap])\s*m\b/g,'$1m').replace(/\s+/g,' ');
+    var m = /(\d{1,2})(?:\s*[:h]\s*(\d{2}))?\s*(am|pm)?/.exec(s);
+    if(!m) return null;
+    var hh = +m[1], mi = m[2] ? +m[2] : 0;
+    if(m[3] === 'pm' && hh < 12) hh += 12;
+    if(m[3] === 'am' && hh === 12) hh = 0;
+    if(hh > 23 || mi > 59) return null;
+    return { hh:hh, mi:mi };
+  }
+  function parseSlot(fecha, hora, ref){
+    var f = texto(fecha), h = texto(hora);
+    if(!f && !h) return null;
+    ref = ref || new Date();
+    /* instante completo con zona (…Z o …-05:00) */
+    if(/^\d{4}-\d{2}-\d{2}T.*(Z|[+-]\d{2}:?\d{2})$/.test(f)){
+      var inst = new Date(f); return isNaN(inst) ? null : inst;
+    }
+    var s = sinTildes(f), y = null, mo = null, d = null, m;
+    if((m = /(\d{4})-(\d{1,2})-(\d{1,2})/.exec(s))){ y = +m[1]; mo = +m[2]; d = +m[3]; }
+    else if((m = /(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})/.exec(s))){ d = +m[1]; mo = +m[2]; y = +m[3]; if(y < 100) y += 2000; }
+    else if((m = /(\d{1,2})\s*(?:de\s+)?([a-z]{3,})\.?(?:\s*(?:de|del)?\s*(\d{4}))?/.exec(s)) && MESES[m[2].slice(0,3)]){
+      d = +m[1]; mo = MESES[m[2].slice(0,3)]; y = m[3] ? +m[3] : null;
+    }else{
+      var rel = null;
+      if(/pasado manana/.test(s)) rel = 2; else if(/manana/.test(s)) rel = 1; else if(/\bhoy\b/.test(s)) rel = 0;
+      if(rel !== null){
+        var base = new Date(ref.getTime() - BOG_MS + rel * DIA);
+        y = base.getUTCFullYear(); mo = base.getUTCMonth() + 1; d = base.getUTCDate();
+      }
+    }
+    if(d === null || mo === null) return null;
+    if(y === null){
+      var r = new Date(ref.getTime() - BOG_MS);
+      y = r.getUTCFullYear();
+      /* sin año: si cae más de 30 días antes de la referencia, es del año siguiente */
+      var tentativo = Date.UTC(y, mo - 1, d);
+      if(tentativo < Date.UTC(r.getUTCFullYear(), r.getUTCMonth(), r.getUTCDate()) - 30 * DIA) y += 1;
+    }
+    if(mo < 1 || mo > 12 || d < 1 || d > 31 || y < 2020 || y > 2100) return null;
+    /* hora: del campo `hora`; si no, de la propia `fecha` ("2026-10-14 15:30", "a las 3 p. m.") */
+    var hr = h ? parseHora(h) : null;
+    if(!hr){
+      var tf = /(\d{1,2}):(\d{2})/.exec(s) || /\ba las (\d{1,2})\b/.exec(s) || /(\d{1,2})\s*(?:am|pm|a\.? ?m\.?|p\.? ?m\.?)/.exec(s);
+      if(tf){ var ts = s.slice(tf.index); hr = parseHora(ts); }
+    }
+    if(!hr) return null;
+    return new Date(Date.UTC(y, mo - 1, d, hr.hh, hr.mi) + BOG_MS);
+  }
+
+  /* ---------------- teléfono ---------------- */
+  function soloDigitos(s){ return String(s||'').replace(/\D/g,''); }
+  function telVista(t){
+    var d = soloDigitos(t);
+    if(/^57\d{10}$/.test(d)) return '+57 ' + d.slice(2,5) + ' ' + d.slice(5,8) + ' ' + d.slice(8);
+    if(/^\d{10}$/.test(d)) return d.slice(0,3) + ' ' + d.slice(3,6) + ' ' + d.slice(6);
+    return texto(t);
+  }
+  function telHref(t){
+    var d = soloDigitos(t);
+    if(!d) return '';
+    if(d.length === 10) d = '57' + d;
+    return 'tel:+' + d;       /* solo dígitos: nada del servidor llega al href sin pasar por soloDigitos */
+  }
+
+  /* ---------------- normalización ---------------- */
+  function normEstado(e){
+    e = String(e || '').toLowerCase();
+    if(/verif|confirm|aprob|ok/.test(e)) return 'verified';
+    if(/rech|reject|cancel|anul/.test(e)) return 'rejected';
+    return 'pending';
+  }
+  function normNotas(n){
+    if(n == null) return '';
+    if(Array.isArray(n)) n = n.join(' | ');
+    return String(n).replace(/\s*\r?\n\s*/g,' | ').trim();
+  }
+  /* Solo se copian campos conocidos: cualquier otro (p. ej. un `token`) se descarta aquí. */
+  function normCita(c){
+    var o = {
+      id: String(c.id == null ? '' : c.id),
+      creado: toDate(c.creado),
+      estado: normEstado(c.estado),
+      tutor: texto(c.tutor),
+      mascota: texto(c.mascota),
+      motivo: texto(c.motivo),
+      sede: texto(c.sede),
+      fecha: texto(c.fecha),
+      hora: texto(c.hora),
+      telefono: texto(c.telefono),
+      notas: normNotas(c.notas),
+      ejemplo: !!c.__ejemplo
+    };
+    o.slot = parseSlot(c.fecha, c.hora, o.creado || new Date());
+    o.sig = [o.estado, o.tutor, o.mascota, o.motivo, o.sede, o.fecha, o.hora, o.telefono, o.notas, c.creado].join('\u0001');
+    return o;
+  }
+
+  /* ---------------- estado ---------------- */
+  var st = {
+    datos: [], prev: null, nuevoDesde: {}, abiertas: {},
+    conectado: null, cargado: false, fallos: 0, ejemplos: false, ultimaLectura: null,
+    filtro: 'todas', sede: '', ultimaSig: ''
+  };
+
+  /* ---------------- plan de recordatorios (se calcula aquí) ---------------- */
+  var PLAN = [
+    { id:'r24', cuando:'24 horas antes',    titulo:'Recordatorio de cita por WhatsApp',          desc:'Recuerda el día, la hora y la sede de la cita.', antes:24 * H },
+    { id:'r2',  cuando:'2 horas antes',     titulo:'Qué llevar a la cita',                       desc:'Qué llevar a la consulta y cómo llegar a la sede.', antes:2 * H },
+    { id:'s3',  cuando:'3 días después',    titulo:'Seguimiento: ¿cómo sigue tu mascota?',       desc:'Mensaje de seguimiento después de la consulta.', antes:-3 * DIA },
+    { id:'v',   cuando:'Según indicación del médico', titulo:'Recordatorio de vacuna o control', desc:'Se programa con la fecha que indique el médico en la consulta.', antes:null }
+  ];
+  function planDe(c, ahora){
+    if(!c.slot) return null;
+    var t = c.slot.getTime();
+    var hoy = diaBog(ahora);
+    return PLAN.map(function(p){
+      if(p.antes === null) return { p:p, fecha:null, na:false };
+      var fecha = new Date(t - p.antes);
+      /* un recordatorio que caería antes de que la cita existiera no se programa */
+      var na = !!(c.creado && fecha.getTime() < c.creado.getTime());
+      return { p:p, fecha:fecha, na:na, dif: diaBog(fecha.getTime()) - hoy };
+    });
+  }
+
+  /* ---------------- render ---------------- */
+  var CHEV = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+
+  function pasoHTML(x){
+    var fe, sub = '';
+    if(x.fecha){
+      fe = esc(fechaCorta(x.fecha)) + '<small>' + esc(horaCorta(x.fecha)) + (x.dif != null ? ' &middot; ' + esc(relativo(x.dif)) : '') + '</small>';
+    }else{
+      fe = 'Por definir<small>lo indica el m&eacute;dico</small>';
+    }
+    var tags = x.na
+      ? '<span class="tag na">No aplica: la cita se agend&oacute; con menos de ' + (x.p.id === 'r24' ? '24 h' : '2 h') + ' de anticipaci&oacute;n</span>'
+      : '<span class="tag wa">WhatsApp institucional</span><span class="tag prog">Programado (demo)</span>';
+    return '<li class="paso' + (x.na ? ' na' : '') + '">'
+      + '<div class="fe">' + fe + '</div>'
+      + '<div class="tx"><b>' + esc(x.p.cuando) + ' &middot; ' + esc(x.p.titulo) + '</b><span class="d">' + esc(x.p.desc) + '</span>'
+      + '<div class="tags">' + tags + '</div></div>'
+      + '</li>';
+  }
+  function planHTML(c, ahora){
+    if(c.estado === 'rejected'){
+      return '<div class="plan"><h3>Plan de recordatorios</h3><div class="espera neutro">Cita rechazada: no se programan recordatorios.</div></div>';
+    }
+    var plan = planDe(c, ahora);
+    if(!plan){
+      return '<div class="plan"><h3>Plan de recordatorios</h3><div class="espera">Falta la fecha o la hora de la cita (o no se entendi&oacute; el formato), as&iacute; que todav&iacute;a no se puede calcular el plan.</div></div>';
+    }
+    return '<div class="plan"><h3>Plan de recordatorios programados</h3>'
+      + '<p class="sub">Calculado en esta pantalla a partir de la fecha y la hora de la cita. En la demo no se env&iacute;a ning&uacute;n mensaje.</p>'
+      + (c.estado === 'pending' ? '<div class="espera">La cita est&aacute; pendiente de confirmaci&oacute;n; el plan se activa cuando la sede la confirme.</div>' : '')
+      + '<ul class="pasos">' + plan.map(pasoHTML).join('') + '</ul></div>';
+  }
+  function fichaHTML(c, ahora){
+    var f = '';
+    function fila(l, v){ if(v) f += '<div><dt>' + esc(l) + '</dt><dd>' + v + '</dd></div>'; }
+    fila('Registrada', c.creado ? esc(fechaLarga(c.creado)) + ' &middot; ' + esc(haceCuanto(c.creado, ahora)) : '');
+    fila('Notas', c.notas ? esc(c.notas) : '');
+    fila('Referencia', c.id ? esc(numCita(c.id)) : '');
+    return '<div class="det"><h3>Detalle</h3><dl class="ficha">' + (f || '<div><dd>Sin notas.</dd></div>') + '</dl></div>';
+  }
+
+  function citaHTML(c, ahora){
+    var chip = c.estado === 'verified' ? '<span class="chip ok">Confirmada</span>'
+             : (c.estado === 'rejected' ? '<span class="chip rech">Rechazada</span>'
+             : '<span class="chip pend">Pendiente</span>');
+    var abierta = !!st.abiertas[c.id];
+    var cuando;
+    if(c.slot){
+      var dif = diaBog(c.slot.getTime()) - diaBog(ahora);
+      cuando = '<b>' + esc(fechaCorta(c.slot)) + '</b><span class="sub">' + esc(horaCorta(c.slot)) + ' &middot; ' + esc(relativo(dif)) + '</span>';
+    }else if(c.fecha || c.hora){
+      cuando = '<b>' + esc([c.fecha, c.hora].filter(Boolean).join(' ')) + '</b>';
+    }else{
+      cuando = '<span class="vac">Por definir</span>';
+    }
+    var quien = '<b>' + esc(c.tutor || 'Tutor sin nombre') + '</b>'
+      + (c.ejemplo ? '<span class="etq">Ejemplo</span>' : '')
+      + '<span class="sub">' + (c.mascota ? esc(c.mascota) : '<span class="vac">Mascota sin nombre</span>') + '</span>';
+    var tel = c.telefono && telHref(c.telefono)
+      ? '<a href="' + esc(telHref(c.telefono)) + '">' + esc(telVista(c.telefono)) + '</a>'
+      : '<span class="vac">&mdash;</span>';
+    return '<article class="cita' + (abierta ? ' abierta' : '') + (c.ejemplo ? ' ej' : '') + (recienLlegado(c.id) ? ' nuevo' : '') + '" data-id="' + esc(c.id) + '">'
+      + '<div class="fila">'
+      +   '<div class="c-estado" data-l="Estado">' + chip + '</div>'
+      +   '<div class="c-quien" data-l="Tutor y mascota">' + quien + '</div>'
+      +   '<div class="c-motivo txt" data-l="Motivo">' + (c.motivo ? esc(c.motivo) : '<span class="vac">&mdash;</span>') + '</div>'
+      +   '<div class="c-sede txt" data-l="Sede">' + (c.sede ? esc(c.sede) : '<span class="vac">&mdash;</span>') + '</div>'
+      +   '<div class="c-cuando" data-l="Fecha y hora">' + cuando + '</div>'
+      +   '<div class="c-tel" data-l="Teléfono">' + tel + '</div>'
+      +   '<button class="c-mas" type="button" aria-expanded="' + abierta + '" aria-label="' + (abierta ? 'Ocultar' : 'Ver') + ' recordatorios programados">' + CHEV + '</button>'
+      + '</div>'
+      + (abierta ? '<div class="detalle"><div class="det-grid">' + fichaHTML(c, ahora) + planHTML(c, ahora) + '</div></div>' : '')
+      + '</article>';
+  }
+  function recienLlegado(id){ var t = st.nuevoDesde[id]; return !!t && (Date.now() - t) < 7000; }
+
+  function ordena(a, b){
+    var ta = a.creado ? a.creado.getTime() : 0, tb = b.creado ? b.creado.getTime() : 0;
+    return tb - ta;
+  }
+  function porSede(datos){
+    return st.sede ? datos.filter(function(c){ return c.sede === st.sede; }) : datos;
+  }
+  function filtra(datos){
+    var f = st.filtro;
+    return datos.filter(function(c){
+      if(f === 'pend') return c.estado === 'pending';
+      if(f === 'ok') return c.estado === 'verified';
+      if(f === 'rech') return c.estado === 'rejected';
+      return true;
+    });
+  }
+
+  function pintaSedes(){
+    var sedes = [];
+    st.datos.forEach(function(c){ if(c.sede && sedes.indexOf(c.sede) < 0) sedes.push(c.sede); });
+    sedes.sort(function(a, b){ return a.localeCompare(b, 'es'); });
+    if(st.sede && sedes.indexOf(st.sede) < 0) st.sede = '';
+    var sel = $('sede-sel'), chip = $('sede-chip');
+    if(sedes.length > 1){
+      sel.hidden = false; chip.hidden = true;
+      var html = '<option value="">Todas las sedes (' + sedes.length + ')</option>';
+      sedes.forEach(function(s){ html += '<option value="' + esc(s) + '"' + (s === st.sede ? ' selected' : '') + '>' + esc(s) + '</option>'; });
+      if(sel.getAttribute('data-sig') !== html){ sel.innerHTML = html; sel.setAttribute('data-sig', html); }
+      sel.value = st.sede;
+    }else{
+      sel.hidden = true; chip.hidden = false;
+      chip.textContent = sedes.length === 1 ? sedes[0] : 'Todas las sedes';
+    }
+  }
+
+  function pinta(){
+    var ahora = Date.now();
+    pintaSedes();
+    var base = porSede(st.datos);
+    var c = { todas:base.length, pend:0, ok:0, rech:0, hoy:0, creadasHoy:0 };
+    var hoyIdx = diaBog(ahora);
+    base.forEach(function(x){
+      if(x.estado === 'pending') c.pend++;
+      if(x.estado === 'verified') c.ok++;
+      if(x.estado === 'rejected') c.rech++;
+      if(x.estado !== 'rejected' && x.slot && diaBog(x.slot.getTime()) === hoyIdx) c.hoy++;
+      if(x.creado && diaBog(x.creado.getTime()) === hoyIdx) c.creadasHoy++;
+    });
+    $('k-tot').textContent = c.todas; $('k-tot2').textContent = 'hoy: ' + c.creadasHoy;
+    $('k-hoy').textContent = c.hoy; $('k-ok').textContent = c.ok; $('k-pen').textContent = c.pend;
+    $('c-todas').textContent = c.todas; $('c-pend').textContent = c.pend; $('c-ok').textContent = c.ok; $('c-rech').textContent = c.rech;
+    Array.prototype.forEach.call($('filtros').querySelectorAll('button'), function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-f') === st.filtro);
+    });
+
+    var visibles = filtra(base.slice().sort(ordena));
+    var html;
+    if(!st.cargado){
+      html = st.fallos > 0
+        ? errorHTML()
+        : '<div class="vacio"><strong>Conectando con el panel&hellip;</strong>Un momento.</div>';
+    }else if(!visibles.length){
+      if(!st.datos.length){
+        html = '<div class="vacio"><strong>A&uacute;n no hay citas.</strong>Agenda una desde el <a href="./whatsapp.html">simulador de WhatsApp</a> y aparece aqu&iacute;.</div>';
+      }else{
+        html = '<div class="vacio"><strong>No hay citas con este filtro.</strong>Prueba con &laquo;Todas&raquo; o con otra sede.</div>';
+      }
+    }else{
+      html = visibles.map(function(x){ return citaHTML(x, ahora); }).join('');
+    }
+    $('lista').innerHTML = html;
+    var b = $('btn-err-act'); if(b) b.onclick = function(){ actualizar(true); };
+  }
+  function errorHTML(){
+    return '<div class="vacio err"><strong>No pudimos actualizar el panel en este momento.</strong>'
+      + 'Reintentamos solos cada pocos segundos; tambi&eacute;n puedes actualizar a mano.'
+      + '<br><button class="btn" id="btn-err-act" type="button">Actualizar ahora</button></div>';
+  }
+
+  /* ---------------- datos de ejemplo (solo ?mock=1 o file://) ---------------- */
+  function ejemplos(){
+    var t = Date.now(), man = new Date(t + DIA + 0), f = function(d){
+      var b = new Date(d.getTime() - BOG_MS);
+      return b.getUTCFullYear() + '-' + ('0'+(b.getUTCMonth()+1)).slice(-2) + '-' + ('0'+b.getUTCDate()).slice(-2);
+    };
+    return [
+      { id:'EJ-3', creado:new Date(t - 4*60000).toISOString(),  estado:'pending',  tutor:'Camila Rojas',     mascota:'Luna (perra)', motivo:'Consulta general: lleva dos días sin comer bien', sede:'Sede de ejemplo A', fecha:f(man), hora:'10:00', telefono:'573001234567', notas:'Primera visita.' },
+      { id:'EJ-2', creado:new Date(t - 3*H).toISOString(),      estado:'verified', tutor:'Andrés Martínez',  mascota:'Toby (perro)', motivo:'Vacunación',                                      sede:'Sede de ejemplo B', fecha:f(new Date(t + 2*DIA)), hora:'3:30 p. m.', telefono:'3105550142', notas:'' },
+      { id:'EJ-1', creado:new Date(t - 26*H).toISOString(),     estado:'verified', tutor:'Paola Gómez',      mascota:'Mía (gata)',   motivo:'Revisión de control',                              sede:'Sede de ejemplo A', fecha:f(new Date(t)),        hora:'18:00', telefono:'3205550188', notas:'Control posoperatorio.' }
+    ].map(function(e){ e.__ejemplo = true; return e; });
+  }
+
+  /* ---------------- aplicar lecturas ---------------- */
+  function aplica(lista, esEjemplo){
+    var datos = lista.filter(function(p){ return p && typeof p === 'object'; })
+      .map(function(p){ if(esEjemplo) p.__ejemplo = true; return normCita(p); })
+      .filter(function(p){ return p.id; });
+    var primera = !st.cargado;
+    var orden = datos.slice().sort(ordena);
+    if(!esEjemplo){
+      if(st.prev !== null){
+        datos.forEach(function(p){
+          var antes = st.prev[p.id];
+          if(antes === undefined){ st.nuevoDesde[p.id] = Date.now(); st.abiertas[p.id] = true; }   /* llegó una cita nueva: se despliega sola */
+          else if(antes !== p.estado){ st.nuevoDesde[p.id] = Date.now(); }
+        });
+      }else if(orden.length){
+        st.abiertas[orden[0].id] = true;     /* primera lectura: la más reciente ya viene desplegada */
+      }
+    }else if(primera && orden.length){
+      st.abiertas[orden[0].id] = true;
+    }
+    var mapa = {}; datos.forEach(function(p){ mapa[p.id] = p.estado; });
+    st.prev = esEjemplo ? null : mapa; st.datos = datos; st.cargado = true; st.ejemplos = !!esEjemplo;
+    var sig = datos.map(function(p){ return p.sig; }).join('\u0002') + '|' + st.ejemplos;
+    if(sig !== st.ultimaSig){ st.ultimaSig = sig; pinta(); }
+  }
+
+  /* ---------------- red ---------------- */
+  function traer(){
+    var ctl = ('AbortController' in window) ? new AbortController() : null;
+    var to = setTimeout(function(){ if(ctl) ctl.abort(); }, TIMEOUT);
+    return fetch(ENDPOINT, { cache:'no-store', signal: ctl ? ctl.signal : undefined }).then(function(r){
+      clearTimeout(to);
+      if(!r.ok){ var e = new Error('HTTP ' + r.status); e.status = r.status; throw e; }
+      return r.json();
+    }, function(e){ clearTimeout(to); throw e; }).then(function(j){
+      if(!j || j.ok === false || !Array.isArray(j.citas)) throw new Error('respuesta inesperada');
+      return j.citas;
+    });
+  }
+  function horaSeg(d){
+    var p = function(n){ return (n<10?'0':'')+n; };
+    return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+  }
+  function pintaEstado(){
+    var el = $('est'), tx = $('est-txt'), av = $('aviso-red');
+    if(MOCK){
+      el.className = 'est mock'; tx.textContent = 'Datos de ejemplo';
+      av.hidden = false; av.innerHTML = '<b>Datos de ejemplo.</b> Estas citas no son reales: sirven para ver c&oacute;mo se ve el panel.';
+      return;
+    }
+    el.className = 'est' + (st.conectado ? '' : ' off');
+    if(st.conectado) tx.textContent = 'En vivo · ' + horaSeg(st.ultimaLectura || new Date());
+    else tx.textContent = st.fallos >= MAX_FALLOS ? 'Consulta detenida' : 'Sin conexión';
+    if(!st.conectado && st.cargado && st.fallos >= 1 && st.fallos < MAX_FALLOS){
+      av.hidden = false;
+      av.innerHTML = '<b>Sin conexi&oacute;n con el panel.</b> Estas son las &uacute;ltimas citas recibidas; se actualiza solo al volver.';
+    }else if(st.conectado || !st.cargado){ av.hidden = true; }
+  }
+  var timer = null, enVuelo = false;
+  function proximaEspera(){
+    if(st.fallos === 0) return INTERVALO;
+    return Math.min(INTERVALO * Math.pow(2, st.fallos), MAX_ESPERA);
+  }
+  function programa(ms){ clearTimeout(timer); timer = setTimeout(ciclo, ms); }
+  function ciclo(){
+    /* pestaña oculta -> no sondea; la PRIMERA carga sí se hace (una sola petición) */
+    if(document.hidden && st.cargado){ programa(INTERVALO); return; }
+    if(enVuelo) return;
+    enVuelo = true;
+    $('btn-act').disabled = true; $('btn-act-t').textContent = 'Actualizando…';
+    traer().then(function(lista){
+      st.fallos = 0; st.conectado = true; st.ultimaLectura = new Date();
+      aplica(lista, false); pintaEstado();
+    }).catch(function(){
+      st.fallos++; st.conectado = false;
+      pintaEstado();
+      if(!st.cargado) pinta();
+    }).then(function(){
+      enVuelo = false;
+      $('btn-act').disabled = false; $('btn-act-t').textContent = 'Actualizar';
+      if(st.fallos >= MAX_FALLOS){ detenido(); return; }
+      programa(proximaEspera());
+    });
+  }
+  /* "Actualizar": lectura inmediata y rearma el sondeo si se había detenido */
+  function actualizar(){
+    if(MOCK){ return; }
+    st.fallos = 0;
+    var av = $('aviso-red'); if(!st.conectado) av.hidden = true;
+    clearTimeout(timer);
+    ciclo();
+  }
+  function detenido(){
+    var av = $('aviso-red');
+    av.hidden = false;
+    av.innerHTML = '<b>El panel no responde,</b> as&iacute; que esta p&aacute;gina dej&oacute; de consultar. <button type="button" id="btn-reintentar" class="btn-mini">Actualizar</button>';
+    $('est-txt').textContent = 'Consulta detenida';
+    var b = $('btn-reintentar');
+    if(b) b.onclick = function(){ actualizar(); };
+  }
+
+  /* ---------------- interfaz ---------------- */
+  function alternar(id){
+    st.abiertas[id] = !st.abiertas[id];
+    st.ultimaSig = '';
+    pinta();
+  }
+  function init(){
+    $('filtros').addEventListener('click', function(ev){
+      var b = ev.target.closest && ev.target.closest('button[data-f]');
+      if(!b) return;
+      st.filtro = b.getAttribute('data-f'); pinta();
+    });
+    $('sede-sel').addEventListener('change', function(){ st.sede = this.value; pinta(); });
+    $('btn-act').addEventListener('click', function(){ actualizar(); });
+    /* desplegar/plegar: clic en la fila o en el botón; los enlaces (tel:) no la activan */
+    $('lista').addEventListener('click', function(ev){
+      if(ev.target.closest && ev.target.closest('a')) return;
+      var art = ev.target.closest && ev.target.closest('.cita');
+      if(!art || !ev.target.closest('.fila')) return;
+      alternar(art.getAttribute('data-id'));
+    });
+
+    if(MOCK){
+      aplica(ejemplos(), true); pintaEstado();
+      /* los "hace X min" y los relativos se refrescan solos */
+      setInterval(function(){ if(!document.hidden) pinta(); }, 30000);
+      return;
+    }
+    pinta();
+    ciclo();
+    setInterval(function(){ if(st.cargado && !document.hidden){ pinta(); } }, 30000);
+  }
+
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+</body>
+</html>
